@@ -1,0 +1,10 @@
+1481876943114	Rename package 'com.amadeus.drools.parser.model'
+1481876950447	Delete element
+1481883513279	Delete element
+1481883672546	Rename package 'com.amadeus.drools.RuleParserTest'
+1481883767152	Rename resource 'droolsfeature'
+1481883870354	Rename resource 'rules'
+1481883879691	Rename resource 'rule.parser'
+1481883897061	Copy file
+1481886906407	Copy file
+1481897943090	Encapsulate field 'attributes'

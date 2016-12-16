@@ -1,0 +1,12 @@
+package com.amadeus.drools.rule.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Rule {
+
+	private String name;
+	private List<Constraint>constraints = new ArrayList<Constraint>();
+	private List<Consequence>consequences = new ArrayList<Consequence>();
+	
+}

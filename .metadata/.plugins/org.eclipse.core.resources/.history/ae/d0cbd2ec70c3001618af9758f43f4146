@@ -1,0 +1,5 @@
+package com.amadeus.drools.rule.parser;
+
+public class RuleParser {
+
+}

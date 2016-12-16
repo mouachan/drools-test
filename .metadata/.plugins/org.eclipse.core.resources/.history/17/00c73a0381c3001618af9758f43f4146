@@ -1,0 +1,15 @@
+package com.amadeus.drools.rule.parser;
+
+import org.junit.Test;
+
+public class RuleParserTest {
+	String path = System.getProperty("user.dir") + "/src/main/resources/com/amadeus/drools/rule/parser/";
+
+	@Test
+	public void testParseSimpleRule(){
+		RuleParser rp = new RuleParser();
+		rp.setUp(path+"rules2.drl");
+		rp.parseDrlRule();
+	}
+
+}

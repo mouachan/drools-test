@@ -1,0 +1,8 @@
+package com.amadeus.droolsfeature.listener;
+
+public class Snippet {
+	public static void main(String[] args) {
+			<version>${runtime.version}</version>
+	}
+}
+

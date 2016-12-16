@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="DMNDecisionTableRuntimeTest.testSimpleDecisionTableUniqueHitPolicy" project="kie-dmn-core" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testcase name="testSimpleDecisionTableUniqueHitPolicy" classname="org.kie.dmn.core.DMNDecisionTableRuntimeTest" time="2.727"/>
+</testrun>

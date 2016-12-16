@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.junit.Test"/>
+<fullyQualifiedTypeName name="org.kie.api.KieBase"/>
+<fullyQualifiedTypeName name="org.kie.api.definition.type.FactType"/>
+<fullyQualifiedTypeName name="org.junit.Before"/>
+<fullyQualifiedTypeName name="antlr.collections.List"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.Collection"/>
+<fullyQualifiedTypeName name="org.kie.internal.builder.DecisionTableConfiguration"/>
+<fullyQualifiedTypeName name="org.kie.internal.builder.DecisionTableInputType"/>
+<fullyQualifiedTypeName name="org.kie.internal.builder.KnowledgeBuilder"/>
+<fullyQualifiedTypeName name="com.sun.prism.ResourceFactory"/>
+<fullyQualifiedTypeName name="org.kie.internal.io.ResourceFactory"/>
+<fullyQualifiedTypeName name="org.drools.compiler.lang.DrlDumper"/>
+<fullyQualifiedTypeName name="org.drools.compiler.lang.descr.PackageDescr"/>
+<fullyQualifiedTypeName name="org.drools.compiler.lang.descr.RuleDescr"/>
+<fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
+<fullyQualifiedTypeName name="java.io.ObjectInput"/>
+<fullyQualifiedTypeName name="java.io.ByteArrayOutputStream"/>
+<fullyQualifiedTypeName name="java.io.ObjectOutputStream"/>
+<fullyQualifiedTypeName name="java.io.ByteArrayInputStream"/>
+<fullyQualifiedTypeName name="java.io.FileOutputStream"/>
+<fullyQualifiedTypeName name="org.drools.compiler.compiler.DrlParser"/>
+<fullyQualifiedTypeName name="org.kie.internal.builder.conf.LanguageLevelOption"/>
+<fullyQualifiedTypeName name="java.io.StringReader"/>
+<fullyQualifiedTypeName name="org.drools.compiler.compiler.xml.XmlDumper"/>
+<fullyQualifiedTypeName name="org.kie.internal.builder.KnowledgeBuilderFactory"/>
+<fullyQualifiedTypeName name="java.lang.Object"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="com.amadeus.droolsfeature.model.BzrFlightMatchDeclare"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.amadeus.droolsfeature.DecisionTableTools"/>
+<fullyQualifiedTypeName name="org.junit.Ignore"/>
+<fullyQualifiedTypeName name="org.kie.dmn.feel.parser.feel11.FEELParser"/>
+<fullyQualifiedTypeName name="org.kie.dmn.feel.parser.feel11.FEEL_1_1Lexer"/>
+<fullyQualifiedTypeName name="org.kie.dmn.feel.parser.feel11.FEEL_1_1Parser"/>
+<fullyQualifiedTypeName name="org.kie.api.builder.ReleaseId"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="org.kie.api.builder.Results"/>
+<fullyQualifiedTypeName name="org.kie.api.builder.Message"/>
+</qualifiedTypeNameHistroy>

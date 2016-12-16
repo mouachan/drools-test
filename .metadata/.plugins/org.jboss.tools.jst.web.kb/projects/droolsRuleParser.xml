@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kb-project>
+ <depends-on-projects/>
+ <used-by-projects/>
+ <paths>
+  <path value="/Users/mouachan/.m2/repository/org/hibernate/hibernate-entitymanager/4.2.21.Final/hibernate-entitymanager-4.2.21.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/eclipse/aether/aether-transport-wagon/1.0.0.v20140518/aether-transport-wagon-1.0.0.v20140518.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/eclipse/sisu/org.eclipse.sisu.plexus/0.3.0.M1/org.eclipse.sisu.plexus-0.3.0.M1.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/cxf/cxf-rt-frontend-simple/2.7.18/cxf-rt-frontend-simple-2.7.18.jar"/>
+  <path value="/Users/mouachan/.m2/repository/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/eclipse/jdt/core/compiler/ecj/4.4.2/ecj-4.4.2.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/commons/commons-exec/1.3/commons-exec-1.3.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/cxf/cxf-rt-databinding-jaxb/2.7.18/cxf-rt-databinding-jaxb-2.7.18.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/maven-model-builder/3.2.5/maven-model-builder-3.2.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/cxf/cxf-rt-transports-http/2.7.18/cxf-rt-transports-http-2.7.18.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-shared-services/6.4.0.Final/jbpm-shared-services-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.4.0/jackson-core-2.4.0.jar"/>
+  <path value="/Users/mouachan/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+  <path value="/Users/mouachan/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/poi/poi/3.13/poi-3.13.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-flow-builder/6.4.0.Final/jbpm-flow-builder-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/asm/asm/3.3.1/asm-3.3.1.jar"/>
+  <path value="/Users/mouachan/.m2/repository/xml-resolver/xml-resolver/1.2/xml-resolver-1.2.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/httpcomponents/httpcore/4.3.3/httpcore-4.3.3.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/xmlbeans/xmlbeans/2.6.0/xmlbeans-2.6.0.jar"/>
+  <path value="/Users/mouachan/.m2/repository/joda-time/joda-time/1.6.2/joda-time-1.6.2.jar"/>
+  <path value="/Users/mouachan/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.4.0/jackson-databind-2.4.0.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jboss/spec/javax/transaction/jboss-transaction-api_1.1_spec/1.0.1.Final/jboss-transaction-api_1.1_spec-1.0.1.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/eclipse/aether/aether-spi/1.0.0.v20140518/aether-spi-1.0.0.v20140518.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/ant/ant-launcher/1.8.3/ant-launcher-1.8.3.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/drools/drools-persistence-jpa/6.4.0.Final/drools-persistence-jpa-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/ws/xmlschema/xmlschema-core/2.0.2/xmlschema-core-2.0.2.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/maven-core/3.2.5/maven-core-3.2.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/ant/ant/1.8.3/ant-1.8.3.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/javassist/javassist/3.18.1-GA/javassist-3.18.1-GA.jar"/>
+  <path value="/Users/mouachan/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.4.0/jackson-annotations-2.4.0.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/kie/kie-internal/6.4.0.Final/kie-internal-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/codehaus/plexus/plexus-interpolation/1.21/plexus-interpolation-1.21.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/mvel/mvel2/2.2.8.Final/mvel2-2.2.8.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jdom/jdom/1.1.3/jdom-1.1.3.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/wagon/wagon-http-shared/2.6/wagon-http-shared-2.6.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/maven-artifact/3.2.5/maven-artifact-3.2.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/eclipse/aether/aether-api/1.0.0.v20140518/aether-api-1.0.0.v20140518.jar"/>
+  <path value="/Users/mouachan/.m2/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/maven-settings/3.2.5/maven-settings-3.2.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/maven-compat/3.2.5/maven-compat-3.2.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/codehaus/plexus/plexus-utils/3.0.20/plexus-utils-3.0.20.jar"/>
+  <path value="/Users/mouachan/.m2/repository/javax/activation/activation/1.1.1/activation-1.1.1.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/maven-repository-metadata/3.2.5/maven-repository-metadata-3.2.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/codehaus/btm/btm/2.1.4/btm-2.1.4.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/slf4j/jcl-over-slf4j/1.6.2/jcl-over-slf4j-1.6.2.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/tukaani/xz/1.0/xz-1.0.jar"/>
+  <path value="/Users/mouachan/.m2/repository/wsdl4j/wsdl4j/1.6.3/wsdl4j-1.6.3.jar"/>
+  <path value="/Users/mouachan/.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/eclipse/sisu/org.eclipse.sisu.inject/0.3.0.M1/org.eclipse.sisu.inject-0.3.0.M1.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/codehaus/woodstox/stax2-api/3.1.4/stax2-api-3.1.4.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/eclipse/aether/aether-impl/1.0.0.v20140518/aether-impl-1.0.0.v20140518.jar"/>
+  <path value="/Users/mouachan/.m2/repository/com/sun/xml/bind/jaxb-impl/2.1.13/jaxb-impl-2.1.13.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.0-api/1.0.1.Final/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/junit/junit/4.11/junit-4.11.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/wagon/wagon-http/2.6/wagon-http-2.6.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/kie/kie-api/6.4.0.Final/kie-api-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-audit/6.4.0.Final/jbpm-audit-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/maven-plugin-api/3.2.5/maven-plugin-api-3.2.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/hibernate/common/hibernate-commons-annotations/4.0.2.Final/hibernate-commons-annotations-4.0.2.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jsoup/jsoup/1.7.2/jsoup-1.7.2.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/eclipse/aether/aether-util/1.0.0.v20140518/aether-util-1.0.0.v20140518.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar"/>
+  <path value="/Users/mouachan/.m2/repository/stax/stax-api/1.0.1/stax-api-1.0.1.jar"/>
+  <path value="/Users/mouachan/.m2/repository/com/google/guava/guava/16.0.1/guava-16.0.1.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/cxf/cxf-rt-bindings-soap/2.7.18/cxf-rt-bindings-soap-2.7.18.jar"/>
+  <path value="/Users/mouachan/.m2/repository/javax/enterprise/cdi-api/1.0/cdi-api-1.0.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/cxf/cxf-rt-core/2.7.18/cxf-rt-core-2.7.18.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/drools/drools-compiler/6.4.0.Final/drools-compiler-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/maven-model/3.2.5/maven-model-3.2.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/cxf/cxf-rt-bindings-xml/2.7.18/cxf-rt-bindings-xml-2.7.18.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/eclipse/aether/aether-connector-basic/1.0.0.v20140518/aether-connector-basic-1.0.0.v20140518.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/sonatype/plexus/plexus-cipher/1.7/plexus-cipher-1.7.jar"/>
+  <path value="/Users/mouachan/.m2/repository/com/sun/xml/bind/jaxb-core/2.2.11/jaxb-core-2.2.11.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/cxf/cxf-api/2.7.18/cxf-api-2.7.18.jar"/>
+  <path value="/Users/mouachan/.m2/repository/xmlpull/xmlpull/1.1.3.1/xmlpull-1.1.3.1.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/drools/drools-decisiontables/6.4.0.Final/drools-decisiontables-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/eclipse/aether/aether-transport-http/1.0.0.v20140518/aether-transport-http-1.0.0.v20140518.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/neethi/neethi/3.0.2/neethi-3.0.2.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-runtime-manager/6.4.0.Final/jbpm-runtime-manager-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/sonatype/sisu/sisu-guice/3.2.3/sisu-guice-3.2.3-no_aop.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-test/6.4.0.Final/jbpm-test-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-workitems/6.4.0.Final/jbpm-workitems-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/drools/drools-core/6.4.0.Final/drools-core-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/poi/poi-ooxml-schemas/3.13/poi-ooxml-schemas-3.13.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/httpcomponents/httpclient/4.2.6/httpclient-4.2.6.jar"/>
+  <path value="/Users/mouachan/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-human-task-audit/6.4.0.Final/jbpm-human-task-audit-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/poi/poi-ooxml/3.13/poi-ooxml-3.13.jar"/>
+  <path value="/Users/mouachan/.m2/repository/javax/mail/mail/1.4.5/mail-1.4.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-flow/6.4.0.Final/jbpm-flow-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/codehaus/plexus/plexus-classworlds/2.5.2/plexus-classworlds-2.5.2.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/hibernate/hibernate-core/4.2.21.Final/hibernate-core-4.2.21.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-persistence-jpa/6.4.0.Final/jbpm-persistence-jpa-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/wagon/wagon-provider-api/2.6/wagon-provider-api-2.6.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/kie/kie-ci/6.4.0.Final/kie-ci-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/cxf/cxf-rt-frontend-jaxws/2.7.18/cxf-rt-frontend-jaxws-2.7.18.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/cxf/cxf-rt-ws-addr/2.7.18/cxf-rt-ws-addr-2.7.18.jar"/>
+  <path value="/Users/mouachan/.m2/repository/com/thoughtworks/xstream/xstream/1.4.7/xstream-1.4.7.jar"/>
+  <path value="/Users/mouachan/.m2/repository/com/h2database/h2/1.3.168/h2-1.3.168.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.9/jackson-mapper-asl-1.9.9.jar"/>
+  <path value="/Users/mouachan/.m2/repository/commons-io/commons-io/2.1/commons-io-2.1.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/drools/drools-templates/6.4.0.Final/drools-templates-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-query-jpa/6.4.0.Final/jbpm-query-jpa-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/codehaus/plexus/plexus-component-annotations/1.5.5/plexus-component-annotations-1.5.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-bpmn2/6.4.0.Final/jbpm-bpmn2-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-human-task-core/6.4.0.Final/jbpm-human-task-core-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/com/google/protobuf/protobuf-java/2.6.0/protobuf-java-2.6.0.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/antlr/antlr-runtime/3.5/antlr-runtime-3.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/codehaus/woodstox/woodstox-core-asl/4.4.1/woodstox-core-asl-4.4.1.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/eclipse/aether/aether-transport-file/1.0.0.v20140518/aether-transport-file-1.0.0.v20140518.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-human-task-jpa/6.4.0.Final/jbpm-human-task-jpa-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/maven-settings-builder/3.2.5/maven-settings-builder-3.2.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jboss/spec/javax/annotation/jboss-annotations-api_1.1_spec/1.0.1.Final/jboss-annotations-api_1.1_spec-1.0.1.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/cxf/cxf-rt-ws-policy/2.7.18/cxf-rt-ws-policy-2.7.18.jar"/>
+  <path value="/Users/mouachan/.m2/repository/com/sun/xml/bind/jaxb-xjc/2.1.13/jaxb-xjc-2.1.13.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/apache/maven/maven-aether-provider/3.2.5/maven-aether-provider-3.2.5.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.9/jackson-core-asl-1.9.9.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/jbpm/jbpm-human-task-workitems/6.4.0.Final/jbpm-human-task-workitems-6.4.0.Final.jar"/>
+  <path value="/Users/mouachan/.m2/repository/org/sonatype/plexus/plexus-sec-dispatcher/1.3/plexus-sec-dispatcher-1.3.jar"/>
+ </paths>
+ <validation>
+  <core validator-id="jboss.cdi.core"/>
+  <el>
+   <linked-el length="16" name="%0" offset="3267" path="%1"/>
+   <linked-el length="18" name="%2" offset="2247" path="%1"/>
+   <linked-el length="18" name="%2" offset="2551" path="%1"/>
+   <linked-el length="18" name="%2" offset="2984" path="%1"/>
+   <linked-el length="18" name="%2" offset="2829" path="%1"/>
+   <linked-el length="18" name="%2" offset="2396" path="%1"/>
+   <linked-el length="18" name="%2" offset="2688" path="%1"/>
+   <linked-el length="18" name="%2" offset="3477" path="%1"/>
+   <linked-el length="18" name="%2" offset="2102" path="%1"/>
+   <linked-el length="18" name="%2" offset="1267" path="%1"/>
+   <linked-el length="18" name="%2" offset="1459" path="%1"/>
+   <linked-el length="18" name="%3" offset="2247" path="%1"/>
+   <linked-el length="18" name="%3" offset="2551" path="%1"/>
+   <linked-el length="18" name="%3" offset="2984" path="%1"/>
+   <linked-el length="18" name="%3" offset="2829" path="%1"/>
+   <linked-el length="18" name="%3" offset="2396" path="%1"/>
+   <linked-el length="18" name="%3" offset="2688" path="%1"/>
+   <linked-el length="18" name="%3" offset="3477" path="%1"/>
+   <linked-el length="18" name="%3" offset="2102" path="%1"/>
+   <linked-el length="18" name="%3" offset="1267" path="%1"/>
+   <linked-el length="18" name="%3" offset="1459" path="%1"/>
+   <linked-el length="16" name="%4" offset="3267" path="%1"/>
+  </el>
+ </validation>
+ <aliases>
+  <alias path="/droolsRuleParser/pom.xml" value="%1"/>
+  <alias path="junit" value="%0"/>
+  <alias path="runtime.version" value="%2"/>
+  <alias path="runtime" value="%3"/>
+  <alias path="junit.version" value="%4"/>
+ </aliases>
+ <includes/>
+ <uris/>
+</kb-project>

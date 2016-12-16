@@ -1,0 +1,28 @@
+template header
+age
+type
+log
+
+//created on: 7 déc. 2016
+package com.amadeus.rules.template
+
+//list any import classes here.
+
+
+
+//declare any global variables here
+
+
+template "cheese fan" 
+
+rule "cheese fan_@{row.rowNumber}"
+
+    when
+       Person(age = @{age})
+       Cheese(type == @{type})
+    then
+        list.add("@{log}")
+
+end
+end template
+

@@ -1,0 +1,4 @@
+com/amadeus/droolsfeature/listener/RulesAgendaListener.class
+com/amadeus/droolsfeature/runner/RulesRunner.class
+com/amadeus/droolsfeature/runner/Test.class
+com/amadeus/droolsfeature/model/BzrFlightMatchDeclare.class

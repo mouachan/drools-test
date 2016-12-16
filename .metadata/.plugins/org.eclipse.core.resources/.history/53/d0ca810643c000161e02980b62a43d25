@@ -1,0 +1,5 @@
+package com.amadeus.droolsfeature.model;
+
+public class BzrFlightMatchDeclare {
+
+}
