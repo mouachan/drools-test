@@ -22,13 +22,16 @@ import org.drools.compiler.lang.descr.PackageDescr;
 import org.drools.compiler.lang.descr.PatternDescr;
 import org.drools.compiler.lang.descr.RelationalExprDescr;
 import org.drools.compiler.lang.descr.RuleDescr;
+import org.jbpm.services.task.commands.GetAllCommentsCommand;
 import org.kie.api.KieServices;
 import org.kie.api.io.KieResources;
 import org.kie.api.io.Resource;
 import org.kie.internal.builder.conf.LanguageLevelOption;
 
 import com.amadeus.drools.rule.model.Attribute;
+import com.amadeus.drools.rule.model.Consequence;
 import com.amadeus.drools.rule.model.Constraint;
+import com.amadeus.drools.rule.model.Line;
 import com.amadeus.drools.rule.model.Rule;
 
 public class RuleParser {
@@ -68,46 +71,65 @@ public class RuleParser {
 	 * @param slc
 	 * @return
 	 */
-	private Constraint getCondition(BaseDescr slc) {
+	private void addCondition(BaseDescr slc, String prefix, Line line) {
 		Constraint constraint = new Constraint();
-		if (slc instanceof BindingDescr) {
-			BindingDescr binddescr = (BindingDescr) slc;
-			logger.info("Binding field " + binddescr.getBindingField());
-			logger.info("Variable " + binddescr.getVariable());
+		ExprConstraintDescr ecdescr = (ExprConstraintDescr) slc;
+		logger.debug(" Constraint = " + ecdescr);
+		ConstraintConnectiveDescr result = drlexpparser.parse(ecdescr.getExpression());
+
+		RelationalExprDescr expr = (RelationalExprDescr) result.getDescrs().get(0);
+		/*
+		 * if (expr.getLeft() instanceof BindingDescr) { BindingDescr binddescr
+		 * = (BindingDescr) expr.getLeft(); logger.info("Binding field " +
+		 * binddescr.getBindingField()); logger.info("Variable " +
+		 * binddescr.getVariable()); } else {
+		 */
+		if (line.getConstraints().size() == 0) {
+			constraint.setIndex(0);
+			constraint.setPrefix("");
 		} else {
-			ExprConstraintDescr ecdescr = (ExprConstraintDescr) slc;
-			logger.info(" Constraint = " + ecdescr);
-			ConstraintConnectiveDescr result = drlexpparser.parse(ecdescr.getExpression());
-
-			RelationalExprDescr expr = (RelationalExprDescr) result.getDescrs().get(0);
-			if (expr.getLeft() instanceof BindingDescr) {
-				BindingDescr binddescr = (BindingDescr) expr.getLeft();
-				logger.info("Binding field " + binddescr.getBindingField());
-				logger.info("Variable " + binddescr.getVariable());
-			} else
-				constraint.setLeft(expr.getLeft().getText());
-
-			logger.debug("Left Expression : " + expr.getLeft());
-
-			constraint.setOperand(expr.getOperator());
-			logger.debug("Operator : " + expr.getOperator());
-
-			constraint.setRight(expr.getRight().getText());
-			logger.debug("Right expression : " + expr.getRight());
+			constraint.setIndex((line.getConstraints().size()) + 1);
+			constraint.setPrefix(prefix);
 		}
-		return constraint;
+
+		constraint.setObjectType(line.getObjectType());
+		constraint.setLeft(expr.getLeft().toString());
+
+		logger.debug("Left Expression : " + expr.getLeft());
+
+		constraint.setOperand(expr.getOperator());
+		logger.debug("Operator : " + expr.getOperator());
+
+		constraint.setRight(expr.getRight().toString());
+		logger.debug("Right expression : " + expr.getRight());
+		// }
+		line.addConstraint(constraint);
+	}
+
+	private void buildConsequesnce(RuleDescr rule, Rule rulem) {
+		logger.debug(rule.getConsequence());
+		logger.debug(rule.getConsequenceLine());
+		logger.debug(rule.getConsequenceOffset());
+		logger.debug(rule.getConsequencePattern());
+		String[] cons = rule.getConsequence().toString().trim().split(";");
+		for (int i = 0; i < cons.length; i++) {
+			Consequence consequence = new Consequence();
+			consequence.setText(cons[i].trim());
+			rulem.getRhs().addConsequence(consequence);
+		}
+		//TODO implement named consequence
+		for (Map.Entry<String, Object> namedConsequence : rule.getNamedConsequences().entrySet())
+			logger.debug(namedConsequence.getKey() + " : " + namedConsequence.getValue());
 	}
 
 	public List<Rule> parseDrlRule() {
 		List<RuleDescr> rules = packageDescr.getRules();
 		List<Rule> rulesm = new ArrayList<Rule>();
+		Line line;
 		for (RuleDescr rule : rules) {
+			Rule rulem = new Rule();
 			if (rule.isRule()) {
-				Rule rulem = new Rule();
 				rulem.setName(rule.getName());
-				logger.debug(rule.getName());
-				logger.debug("Salience : " + rule.getSalience());
-				logger.debug("Dialect : " + rule.getDialect());
 				// get all rule attributes
 				for (String key : rule.getAttributes().keySet()) {
 					AttributeDescr attribute = (AttributeDescr) rule.getAttributes().get(key);
@@ -116,46 +138,52 @@ public class RuleParser {
 					logger.debug(attribute.getName() + " " + attribute.getValue());
 				}
 				// get all conditions
+
 				if (rule.getLhs() instanceof AndDescr) {
-					for (BaseDescr desc : rule.getLhs().getDescrs()) {
+					for (BaseDescr desc : rule.getLhs().getDescrs()) {	 
 						// Eval conditions
 						if (desc instanceof EvalDescr) {
 							EvalDescr evaldescr = (EvalDescr) desc;
-							// TODO veal constraint to constraint
-							// rulem.getConstraints().add(new
-							// Constraint(evaldescr.getContent().toString()));
+							// TODO implement eval conditon
 							logger.debug(evaldescr.getContent().toString());
 						} // AND conditions
 						else if (desc instanceof PatternDescr) {
 							PatternDescr pdescr = (PatternDescr) desc;
-							logger.debug("id = " + pdescr.getIdentifier() + ", ObjectType = " + pdescr.getObjectType());
+							line = new Line();
+							line.setPrefix("");
+							line.setObjectType(pdescr.getObjectType());
 							for (BaseDescr slc : pdescr.getSlottedConstraints()) {
-								rulem.getConstraints().add(getCondition(slc));
+								addCondition(slc, ",", line);
+								logger.debug(line.toString());
+								// rulem.getConstraints().add(getCondition(slc));
 							}
+							rulem.getLhs().addLine(line);
 						}
 						// Or conditions
 						else if (desc instanceof OrDescr) {
 							OrDescr ordescr = (OrDescr) desc;
+							logger.info(desc.getLine());
+							int index = 0;
 							for (BaseDescr d : ordescr.getDescrs()) {
 								PatternDescr pdescr = (PatternDescr) d;
-								logger.debug(
-										"id = " + pdescr.getIdentifier() + ", ObjectType = " + pdescr.getObjectType());
+								line = new Line();
+								if(index!=0)
+									line.setPrefix("or");
+								else index++;
+								line.setObjectType(pdescr.getObjectType());
 								for (BaseDescr slc : pdescr.getSlottedConstraints()) {
-									rulem.getConstraints().add(getCondition(slc));
+									addCondition(slc, ",", line);
 								}
+								rulem.getLhs().addLine(line);
+
 							}
 						}
 					}
 				}
 				// get all consequences
-				logger.debug(rule.getConsequence());
-				logger.debug(rule.getConsequenceLine());
-				logger.debug(rule.getConsequenceOffset());
-				logger.debug(rule.getConsequencePattern());
-				for (Map.Entry<String, Object> namedConsequence : rule.getNamedConsequences().entrySet())
-					logger.debug(namedConsequence.getKey() + " : " + namedConsequence.getValue());
-
+				 buildConsequesnce(rule, rulem);
 			}
+			rulesm.add(rulem);
 		}
 		return rulesm;
 	}

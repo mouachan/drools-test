@@ -2,6 +2,7 @@ package com.amadeus.drools.rule.parser;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +12,7 @@ import static org.junit.Assert.*;
 
 public class RuleParserTest {
 	String path = System.getProperty("user.dir") + "/src/main/resources/com/amadeus/drools/rule/parser/";
+	private static Logger logger = Logger.getLogger(RuleParserTest.class);
 	Attribute noloop = null;
 	Attribute dialect = null;
 	Attribute salience = null;
@@ -36,9 +38,12 @@ public class RuleParserTest {
 	@Test
 	public void testParseSimpleRule() {
 		RuleParser rp = new RuleParser();
-		rp.setUp(path + "rules2.drl");
+		rp.setUp(path + "rules.drl");
 		rules = (ArrayList<Rule>) rp.parseDrlRule();
-		assertAllRule("eval rule");
+		for(Rule rule : rules){
+			String rulestring = rule.buildRule();
+			logger.info(rulestring);
+		}
 
 	}
 

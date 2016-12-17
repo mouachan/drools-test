@@ -44,14 +44,16 @@ function BzrFlightMatchDeclare createBzrFlightMatchDeclare(String name){
 }
 
 
-rule "insert flight"
+rule "and rule"
 no-loop 
 salience 10000
 dialect "mvel" 
 when
-eval(name == "toto")
+b:Booking (this != null, f:flight != null)
+b:Booking (this != null, f:flight != null)
+or b:Booking (this != null, f:flight != null)
 then
  insert(f);
-  System.out.println("yes");
+ System.out.println("yes");
 end 
 
