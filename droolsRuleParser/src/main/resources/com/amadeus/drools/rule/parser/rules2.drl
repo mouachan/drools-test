@@ -1,5 +1,8 @@
 package com.amadeus.droolsfeature.rules 
 
+import com.amadeus.model.*
+import java.util.ArrayList
+
 declare  BzrFlightDeclare
     number : int 
     airline : String 
@@ -49,7 +52,8 @@ no-loop
 salience 10000
 dialect "mvel" 
 when
-eval(name == "toto")
+eval(name == "toto" && customer == "titi")
+or eval(name == "toto" && customer == "titi")
 then
  insert(f);
   System.out.println("yes");
@@ -74,6 +78,18 @@ when
 Booking(customer == "Dupont")
 or Booking(customer == "Martin")
 b:Booking (this != null, f:flight != null)
+then
+ insert(f);
+  System.out.println("yes");
+end 
+
+rule "or rule with eval"
+no-loop 
+salience 10000
+dialect "mvel" 
+when
+Booking(customer == "Dupont")
+or Booking(customer == "Martin")
 then
  insert(f);
   System.out.println("yes");

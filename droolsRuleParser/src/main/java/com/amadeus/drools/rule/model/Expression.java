@@ -3,11 +3,23 @@ package com.amadeus.drools.rule.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Line {
-	String type;
-	String objectType;
-	String prefix;
-	List<Constraint> constraints = new ArrayList<Constraint>();
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement(name="expression")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Expression {
+	@XmlElement(name="type")
+	private String type;
+	@XmlElement(name="objectType")
+	private String objectType;
+	@XmlElement(name="prefix")
+	private String prefix;
+	@XmlElement(name="bindingType")
+	private String bindingType;
+	@XmlElement(name="constraints")
+	private List<Constraint> constraints = new ArrayList<Constraint>();
 	/**
 	 * @return the type
 	 */
@@ -44,6 +56,20 @@ public class Line {
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
 	}
+
+	/**
+	 * @return the bindingType
+	 */
+	public String getBindingType() {
+		return bindingType;
+	}
+	/**
+	 * @param bindingType the bindingType to set
+	 */
+	public void setBindingType(String bindingType) {
+		this.bindingType = bindingType;
+	}
+	
 	/**
 	 * @return the constraints
 	 */
