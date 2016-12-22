@@ -3,6 +3,7 @@ package com.amadeus.droolsfeature.model;
 public class BzrFlightMatchDeclare {
 	private String name;
 	private int lom;
+	private BzrFlightDeclare parent;
 
 	public String getName() {
 		return name;
@@ -18,6 +19,20 @@ public class BzrFlightMatchDeclare {
 
 	public void setLom(int lom) {
 		this.lom = lom;
+	}
+
+	/**
+	 * @return the parent
+	 */
+	public BzrFlightDeclare getParent() {
+		return parent;
+	}
+
+	/**
+	 * @param parent the parent to set
+	 */
+	public void setParent(BzrFlightDeclare parent) {
+		this.parent = parent;
 	}
 
 	@Override

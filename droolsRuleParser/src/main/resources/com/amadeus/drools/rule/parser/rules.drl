@@ -47,23 +47,7 @@ function BzrFlightMatchDeclare createBzrFlightMatchDeclare(String name){
 
 
 
-
-rule "and rule"
-no-loop 
-salience 10000
-dialect "mvel" 
-
-when
-a:Booking (this != null, f:flight != null)
-or c:Booking (this != null, g:flight != "toto")
-and d:Booking (this != null, h:flight != "titi")
-Flight(test==15)
-then
- insert(f);
- System.out.println("yes");
-end 
-
-
+ 
 rule "rule complexe"
 no-loop 
 salience 10000
@@ -73,7 +57,6 @@ when
 a:Booking (this != null, f:flight != null)
 c:Booking (this != null, g:flight != "toto")
 d:Booking (this != null, h:flight matches "titi")
-Flight(test==15)
 then
  insert(f);
  System.out.println("yes");

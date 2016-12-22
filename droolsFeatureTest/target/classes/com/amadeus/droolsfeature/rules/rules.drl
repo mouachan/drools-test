@@ -1,28 +1,6 @@
 package com.amadeus.droolsfeature.rules 
 
-declare  BzrFlightDeclare
-    number : int 
-    airline : String 
-    matchList : java.util.ArrayList 
-end
-
- 
-
-declare  BzrFlightMatchDeclare
-    name : String 
-    lom : int 
-end
-
- 
-
-declare  Booking
-    @release( 0 )
-    customer : String 
-    flight : BzrFlightDeclare 
-    returnFlight : BzrFlightDeclare 
-end
-
- 
+import com.amadeus.droolsfeature.model.*;
 
 function void addMatch( BzrFlightDeclare k, String keywordName, int levelOfMatch ) {
     BzrFlightMatchDeclare match = new BzrFlightMatchDeclare();
@@ -32,46 +10,22 @@ function void addMatch( BzrFlightDeclare k, String keywordName, int levelOfMatch
           k.getMatchList().add(match);
 }
 
- 
-
- 
-
-function BzrFlightMatchDeclare createBzrFlightMatchDeclare(String name){
-    BzrFlightMatchDeclare bfmd = new BzrFlightMatchDeclare();
-    bfmd.setName(name);
-    return bfmd;
-
-}
-
-
-rule "insert flight"
-no-loop 
-salience 10000
+rule "add match"
+dialect "mvel"
+no-loop true
 when
-Booking (this != null, f:flight != null)
+    k := BzrFlightDeclare( airline.equals("1A") , $lom:5)
+	not (exists BzrFlightMatchDeclare(name == "FLG1")) 
 then
- insert(f);
-end 
-
-rule "FLG1"
-    //lock-on-active true
-   // agenda-group "abr.keywords"
-   dialect "mvel"
-when
-    k := BzrFlightDeclare( airline == "1A" , $lom:5,  createBzrFlightMatchDeclare("FLG1") not memberOf flight.matchList)
-then
-     addMatch(k, "FLG1", $lom);
-     update(k);
+	addMatch(k, "FLG1", $lom);
+	insert(k.matchList.get(0));
 end
 
- 
-
- 
-
-rule "client rule"
+rule "evaluate booking customer"
 dialect "mvel"
 when
-    b := Booking( customer=="Bob", createBzrFlightMatchDeclare("FLG1") memberOf flight.matchList) 
+    b := Booking( customer!="Bobby")
+    exists BzrFlightMatchDeclare(name == "FLG1", lom == 5) 
 then
-modify (b) {setCustomer("Bobby");}
+	modify (b) {setCustomer("Bobby");}
 end

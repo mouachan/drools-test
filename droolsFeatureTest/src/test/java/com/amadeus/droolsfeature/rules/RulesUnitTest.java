@@ -275,6 +275,8 @@ public class RulesUnitTest {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	@Test
 	public void generateXMLFromDrl() {
