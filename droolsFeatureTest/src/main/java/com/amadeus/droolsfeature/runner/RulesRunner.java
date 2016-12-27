@@ -60,6 +60,8 @@ public class RulesRunner {
 	public void runRule(List<Object> objects) {		
 		for (Object object : objects)
 			kSession.insert(object);
+		agendaEventListener = new RulesAgendaListener();
+		kSession.addEventListener(agendaEventListener);
 		kSession.fireAllRules();
 		kSession.dispose();
 	}

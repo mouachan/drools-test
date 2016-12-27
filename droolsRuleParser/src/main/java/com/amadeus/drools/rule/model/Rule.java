@@ -8,9 +8,16 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+
+
 
 @XmlRootElement(name="rule")
 @XmlAccessorType(XmlAccessType.FIELD)
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@JsonPropertyOrder({ "name", "attributes", "lhs","rhs"})
 public class Rule {
 	
 	@XmlElement(name="name")
@@ -18,12 +25,11 @@ public class Rule {
 	@XmlElement(name="attributes")
 	private List<RuleAttribute> attributes = new ArrayList<RuleAttribute>();
 	@XmlElement(name="lhs")
-	private Lhs lhs;
+	private Node lhs;
 	@XmlElement(name="rhs")
 	private Rhs rhs;
 
 	public Rule() {
-		lhs = new Lhs();
 		rhs = new Rhs();
 	}
 
@@ -60,7 +66,7 @@ public class Rule {
 	/**
 	 * @return the lhs
 	 */
-	public Lhs getLhs() {
+	public Node getLhs() {
 		return lhs;
 	}
 
@@ -68,7 +74,7 @@ public class Rule {
 	 * @param lhs
 	 *            the lhs to set
 	 */
-	public void setLhs(Lhs lhs) {
+	public void setLhs(Node lhs) {
 		this.lhs = lhs;
 	}
 
@@ -105,7 +111,8 @@ public class Rule {
 		}
 		builder.append(" when");
 		builder.append("\n");
-		builder.append(this.lhs.buildLhs());
+		//TODO generate DRL of lhs from tree of conditions
+		//builder.append(this.lhs.buildLhs());
 		builder.append("then");
 		builder.append("\n");
 		builder.append(this.rhs.buildRhs());
@@ -113,4 +120,21 @@ public class Rule {
 		builder.append(" end");
 		return builder.toString();
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Rule [name=");
+		builder.append(name);
+		builder.append(", attributes=");
+		builder.append(attributes);
+		builder.append(", lhs=");
+		builder.append(lhs);
+		builder.append(", rhs=");
+		builder.append(rhs);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
 }

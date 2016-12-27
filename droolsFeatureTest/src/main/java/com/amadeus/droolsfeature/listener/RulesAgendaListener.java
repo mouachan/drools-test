@@ -48,12 +48,12 @@ public class RulesAgendaListener implements AgendaEventListener {
 	public void afterMatchFired(AfterMatchFiredEvent event) {
 		String ruleName = event.getMatch().getRule().getName();
 		rulesFired.add(ruleName);
-		logger.debug("***** Rule fired: '"+ruleName+"'");
+		logger.info("***** Rule fired: '"+ruleName+"'");
 		
 		//if (logger.isDebugEnabled()) {
 			Iterator<? extends FactHandle> iter = event.getMatch().getFactHandles().iterator();
 			while (iter.hasNext()) {
-				logger.debug("  -> rule "+ruleName+" fired with following data: "+iter.next().toString());
+				logger.info("  -> rule "+ruleName+" fired with following data: "+iter.next().toString());
 			}
 		//}
 	}

@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import com.amadeus.droolsfeature.model.Booking;
 import com.amadeus.droolsfeature.model.BzrFlightDeclare;
+import com.amadeus.droolsfeature.model.Fact;
 import com.amadeus.droolsfeature.runner.RulesRunner;
 
 public class OptimRulesUpdateTest {
@@ -27,6 +28,13 @@ public class OptimRulesUpdateTest {
 		objects = new ArrayList<Object>();
 		objects.add(booking);
 		objects.add(booking.getFlight());
+	}
+	
+	private void createObj(){
+		Fact fact = new Fact();
+		fact.setValue(42);
+		objects = new ArrayList<Object>();
+		objects.add(fact);
 	}
 	private void runRule(){
 		RulesRunner runner = new RulesRunner();
@@ -103,4 +111,16 @@ public class OptimRulesUpdateTest {
 		}
 	}*/
 
+	
+	@Test
+	public void testR(){
+		logger.info("Test without from");
+		runner = new RulesRunner();
+		initStartTime = System.currentTimeMillis();
+		runner.initialisation("hatemrule.drl");
+		createObj(); 
+		runner.setSession();
+		runner.addAgendaListener();
+		runner.runRule(objects);
+	}
 }

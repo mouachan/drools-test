@@ -7,12 +7,18 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 @XmlRootElement(name="ruleset")
 @XmlAccessorType(XmlAccessType.FIELD)
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@JsonPropertyOrder({ "nameSpace", "imports", "functions","rules"})
 public class RuleSet {
 	
-	@XmlElement(name="namespace")
-	private String namespace;
+	@XmlElement(name="nameSpace")
+	private String nameSpace;
+	@XmlElement(name="imports")
 	private List<String> imports = new ArrayList<String>(); 
 	@XmlElement(name="functions")
 	private List<Function>functions= new ArrayList<Function>();
@@ -24,14 +30,14 @@ public class RuleSet {
 	 * @return the pkg
 	 */
 	public String getNameSpace() {
-		return namespace;
+		return nameSpace;
 	}
 
 	/**
 	 * @param pkg the pkg to set
 	 */
-	public void setNameSpace(String namespace) {
-		this.namespace = namespace;
+	public void setNameSpace(String nameSpace) {
+		this.nameSpace = nameSpace;
 	}
 
 	/**
@@ -87,5 +93,22 @@ public class RuleSet {
 	public void addRule(Rule rule){
 		this.rules.add(rule);
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("RuleSet [namespace=");
+		builder.append(nameSpace);
+		builder.append(", imports=");
+		builder.append(imports);
+		builder.append(", functions=");
+		builder.append(functions);
+		builder.append(", rules=");
+		builder.append(rules);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
 
 }

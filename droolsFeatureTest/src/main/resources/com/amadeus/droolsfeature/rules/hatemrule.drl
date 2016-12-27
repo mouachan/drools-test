@@ -1,0 +1,32 @@
+package com.amadeus.droolsfeature.rules 
+import com.amadeus.droolsfeature.model.*;
+
+function fillMap(Fact f) {
+    f.setMyMap(new java.util.HashMap<String, Integer>());
+    f.getMyMap().put("toto", 10);
+    f.setValue(666);
+
+}
+
+ 
+
+ 
+
+rule "Start"
+    when
+        f : Fact(value!=666)
+    then
+        fillMap(f);
+        update(f);
+  end
+
+   
+
+rule "Rule"
+    when
+
+        f : Fact(value == 666, "toto" memberOf myMap)
+    then
+        System.out.println(f);
+
+    end

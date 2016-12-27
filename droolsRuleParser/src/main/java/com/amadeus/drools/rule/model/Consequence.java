@@ -25,4 +25,15 @@ public class Consequence {
 		this.text = text;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Consequence [text=");
+		builder.append(text);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
+
 }

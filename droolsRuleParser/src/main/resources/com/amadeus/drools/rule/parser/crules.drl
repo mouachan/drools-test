@@ -1,6 +1,6 @@
-package com.amadeus.droolsfeature.rules 
+package com.amadeus.drools.rules.parser 
 
-import java.util.List;
+import java.util.List
 
 declare  BzrFlightDeclare
     number : int 
@@ -48,16 +48,14 @@ function BzrFlightMatchDeclare createBzrFlightMatchDeclare(String name){
 
 
  
-rule "rule complexe"
+rule "crule"
 no-loop 
 salience 10000
 dialect "mvel" 
 when
-a:Booking (this != null , this == "b")
-or b:Booking (this != null, g:flight != "toto")
-and c:Booking (this != null, g:flight != "toto")
-and d:Booking (this != null, h:flight matches "titi")
-or e:Booking (this != null, this == "b")
+a:Booking (this != null or f:flight != null)
+or c:Booking (this != null, g:flight != "toto")
+or d:Booking (this != null, h:flight matches "titi")
 then
  insert(f);
  System.out.println("yes");

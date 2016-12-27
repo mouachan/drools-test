@@ -1,33 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workingSetManager>
-<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1481617395221_1" label="kie-dmn" name="kie-dmn">
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/kie-dmn-api" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/kie-dmn-core" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/kie-dmn-backend" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/kie-dmn-feel" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/kie-dmn" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/kie-dmn-model" type="4"/>
-</workingSet>
-<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1481824420538_2" label="droolsjbpm-tools" name="droolsjbpm-tools">
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/droolsjbpm-tools" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/drools-eclipse" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.drools.eclipse" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.drools.eclipse.feature" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.drools.eclipse.test" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.guvnor.eclipse.webdav" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.guvnor.tools" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.guvnor.tools.feature" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.guvnor.tools.test" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.jbpm.eclipse" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.jbpm.eclipse.feature" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.kie.eclipse" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.kie.eclipse.feature" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.kie.eclipse.navigator" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.kie.eclipse.navigator.feature" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.jboss.tools.runtime.drools.detector" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.jboss.tools.runtime.drools.detector.feature" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.drools.updatesite" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/droolsjbpm-tools-distribution" type="4"/>
-</workingSet>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1481617395221_1" label="kie-dmn" name="kie-dmn"/>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1481824420538_2" label="droolsjbpm-tools" name="droolsjbpm-tools"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1481016807942_0" label="Window Working Set" name="Aggregate for window 1481016807941"/>
 </workingSetManager>

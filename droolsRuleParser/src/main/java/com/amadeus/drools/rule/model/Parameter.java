@@ -5,8 +5,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 @XmlRootElement(name="parameter")
 @XmlAccessorType(XmlAccessType.FIELD)
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@JsonPropertyOrder({ "name", "type"})
 public class Parameter {
 	@XmlElement(name="name")
 	private String name;

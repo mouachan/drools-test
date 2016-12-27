@@ -1,20 +1,15 @@
 package com.amadeus.drools.rule.parser;
 
-import java.io.IOException;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.amadeus.drools.rule.model.RuleAttribute;
-import com.amadeus.drools.rule.model.RuleSet;
-import com.amadeus.drools.rule.excel.grammar.ExcelRuleTemplate;
-import com.amadeus.drools.rule.model.Function;
 import com.amadeus.drools.rule.model.Rule;
-import static org.junit.Assert.*;
+import com.amadeus.drools.rule.model.RuleAttribute;
 
 public class RuleParserTest {
 	String path = System.getProperty("user.dir") + "/src/main/resources/com/amadeus/drools/rule/parser/";
@@ -43,28 +38,13 @@ public class RuleParserTest {
 
 
 	
-	@Test
-	public void testRuleSet(){
-		RuleParser rp = new RuleParser();
-		rp.setUp(path + "rules.drl");
-		RuleSet ruleset = rp.parseRuleSet();
-		logger.info(rp.convertObjectToJson(ruleset));
-		assertEquals(ruleset.getRules().size(), 2);
-	}
 
+	
+	
 	@Test
-	public void testGenerateXLS(){
+	public void testParserByVisitor(){
 		RuleParser rp = new RuleParser();
 		rp.setUp(path + "rules.drl");
-		RuleSet ruleset = rp.parseRuleSet();
-		rp.generateExcel(ruleset, path + "rules.xls");
-	}
-	@Test
-	public void testGenerateTemplate(){
-		RuleParser rp = new RuleParser();
-		rp.setUp(path + "rules.drl");
-		RuleSet ruleset = rp.parseRuleSet();
-		List<ExcelRuleTemplate> erts = rp.populateRulesTemplate(ruleset);
-		rp.writeTemplate(erts, "/Users/mouachan/Workspaces/Amadeus/FeaturesTest/droolsRuleParser/src/main/resources/com/amadeus/drools/rule/parser/rules.xls");
+		rp.parseRule();
 	}
 }

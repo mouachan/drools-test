@@ -4,6 +4,7 @@ public class MergedCell {
 	private Cell from;
 	private Cell to;
 	private String value;
+	private Cell operator;
 	/**
 	 * @return the from
 	 */
@@ -39,6 +40,18 @@ public class MergedCell {
 	 */
 	public void setValue(String value) {
 		this.value = value;
+	}
+	/**
+	 * @return the operator
+	 */
+	public Cell getOperator() {
+		return operator;
+	}
+	/**
+	 * @param operator the operator to set
+	 */
+	public void setOperator(Cell operator) {
+		this.operator = operator;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

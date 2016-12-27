@@ -7,13 +7,20 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 @XmlRootElement(name="function")
 @XmlAccessorType(XmlAccessType.FIELD)
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@JsonPropertyOrder({ "returnType", "name", "parameters","body"})
 public class Function {
-	@XmlElement(name="name")
-	private String name;
+	
 	@XmlElement(name="returnType")
 	private String returnType;
+	@XmlElement(name="name")
+	private String name;
 	@XmlElement(name="parameters")
 	private List<Parameter> parameters = new ArrayList<Parameter>();
 	@XmlElement(name="body")
@@ -108,15 +115,12 @@ public class Function {
 		return builder.toString();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Function [name=");
+		builder.append("Function [returnType=");
+		builder.append(returnType);
+		builder.append(", name=");
 		builder.append(name);
 		builder.append(", parameters=");
 		builder.append(parameters);
@@ -125,5 +129,7 @@ public class Function {
 		builder.append("]");
 		return builder.toString();
 	}
+
+
 
 }
