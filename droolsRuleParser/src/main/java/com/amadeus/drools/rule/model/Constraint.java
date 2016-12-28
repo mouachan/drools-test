@@ -83,6 +83,51 @@ public class Constraint {
 	public void setBindingField(String bindingField) {
 		this.bindingField = bindingField;
 	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bindingField == null) ? 0 : bindingField.hashCode());
+		result = prime * result + ((left == null) ? 0 : left.hashCode());
+		result = prime * result + ((operand == null) ? 0 : operand.hashCode());
+		result = prime * result + ((right == null) ? 0 : right.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Constraint other = (Constraint) obj;
+		if (bindingField == null) {
+			if (other.bindingField != null)
+				return false;
+		} else if (!bindingField.equals(other.bindingField))
+			return false;
+		if (left == null) {
+			if (other.left != null)
+				return false;
+		} else if (!left.equals(other.left))
+			return false;
+		if (operand == null) {
+			if (other.operand != null)
+				return false;
+		} else if (!operand.equals(other.operand))
+			return false;
+		if (right == null) {
+			if (other.right != null)
+				return false;
+		} else if (!right.equals(other.right))
+			return false;
+		return true;
+	}
 
 	@Override
 	public String toString() {

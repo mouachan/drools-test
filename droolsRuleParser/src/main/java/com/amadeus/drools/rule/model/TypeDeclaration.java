@@ -1,5 +1,8 @@
 package com.amadeus.drools.rule.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -7,39 +10,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-
-@XmlRootElement(name="parameter")
+@XmlRootElement(name="TypeDeclaration")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
-@JsonPropertyOrder({ "name", "type"})
-public class Parameter {
+@JsonPropertyOrder({ "name", "fields"})
+public class TypeDeclaration {
 	@XmlElement(name="name")
 	private String name;
-	@XmlElement(name="type")
-	private String type;
-	/**
-	 * @return the name
-	 */
+	@XmlElement(name="fields")
+	private List<Parameter>fields = new ArrayList<Parameter>();
 	public String getName() {
 		return name;
 	}
-	/**
-	 * @param name the name to set
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	/**
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
+	public List<Parameter> getFields() {
+		return fields;
 	}
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
+	public void setAttributes(List<Parameter> fields) {
+		this.fields = fields;
+	}
+	
+	public void addField(Parameter field){
+		this.fields.add(field);
 	}
 	
 	
@@ -47,8 +41,8 @@ public class Parameter {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((fields == null) ? 0 : fields.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
 	@Override
@@ -59,30 +53,30 @@ public class Parameter {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Parameter other = (Parameter) obj;
+		TypeDeclaration other = (TypeDeclaration) obj;
+		if (fields == null) {
+			if (other.fields != null)
+				return false;
+		} else if (!fields.equals(other.fields))
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
-			return false;
 		return true;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("FunctionAttribute [name=");
+		builder.append("TypeDeclaration [name=");
 		builder.append(name);
-		builder.append(", type=");
-		builder.append(type);
+		builder.append(", attributes=");
+		builder.append(fields);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
+
 }

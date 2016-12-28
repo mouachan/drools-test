@@ -66,6 +66,41 @@ public class Expression{
 	}
 	
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bindingType == null) ? 0 : bindingType.hashCode());
+		result = prime * result + ((constraints == null) ? 0 : constraints.hashCode());
+		result = prime * result + ((objectType == null) ? 0 : objectType.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Expression other = (Expression) obj;
+		if (bindingType == null) {
+			if (other.bindingType != null)
+				return false;
+		} else if (!bindingType.equals(other.bindingType))
+			return false;
+		if (constraints == null) {
+			if (other.constraints != null)
+				return false;
+		} else if (!constraints.equals(other.constraints))
+			return false;
+		if (objectType == null) {
+			if (other.objectType != null)
+				return false;
+		} else if (!objectType.equals(other.objectType))
+			return false;
+		return true;
+	}
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Expression [bindingType=");

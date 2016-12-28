@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.schema.JsonSchema;
 import org.drools.compiler.compiler.DrlParser;
 import org.drools.compiler.compiler.DroolsParserException;
 import org.drools.compiler.lang.descr.ImportDescr;
@@ -15,6 +16,7 @@ import org.kie.api.io.Resource;
 
 import com.amadeus.drools.rule.model.Rule;
 import com.amadeus.drools.rule.model.RuleSet;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 /**
  * @author mouachan
@@ -27,7 +29,7 @@ public class RuleParser {
 	protected Rule rule = new Rule();
 	protected RuleSet ruleset = new RuleSet();
 	protected PackageDescrResourceVisitor pdrv = new PackageDescrResourceVisitor();
-	public String lhs="";
+	public String lhs = "";
 
 	public void setUp(String filepath) {
 		KieServices kieServices = KieServices.Factory.get();
@@ -43,13 +45,10 @@ public class RuleParser {
 		}
 	}
 
-	
-	public void parseRule() {
+	public RuleSet parseRule() {
 		ruleset = pdrv.visit(packageDescr);
-		logger.info(convertObjectToJson(ruleset));
+		return ruleset;
 	}
-
-
 
 	/**
 	 * TODO Extract declare from package descriptor implement decalre in the
@@ -70,7 +69,6 @@ public class RuleParser {
 		}
 	}
 
-	
 	/**
 	 * Convert Java object to JSON
 	 * 
@@ -89,8 +87,17 @@ public class RuleParser {
 		}
 	}
 
-	
-
-	
+	public RuleSet convertJsonToRuleSet(String json){
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			RuleSet ruleset =mapper.readValue(json, RuleSet.class);
+			return ruleset;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		 
+	}
 
 }

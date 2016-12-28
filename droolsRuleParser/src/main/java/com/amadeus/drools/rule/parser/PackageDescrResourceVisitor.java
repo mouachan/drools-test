@@ -3,6 +3,8 @@ package com.amadeus.drools.rule.parser;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.drools.compiler.compiler.DrlExprParser;
 import org.drools.compiler.lang.descr.AccessorDescr;
@@ -60,6 +62,7 @@ import com.amadeus.drools.rule.model.Parameter;
 import com.amadeus.drools.rule.model.Rule;
 import com.amadeus.drools.rule.model.RuleAttribute;
 import com.amadeus.drools.rule.model.RuleSet;
+import com.amadeus.drools.rule.model.TypeDeclaration;
 
 public class PackageDescrResourceVisitor {
 
@@ -490,7 +493,7 @@ public class PackageDescrResourceVisitor {
 		checkResource(descr);
 		ruleset.setNameSpace(descr.getNamespace());
 		for (ImportDescr importDescr : descr.getImports()) {
-			logger.info(" importDescr " + descr.toString());
+			logger.debug(" importDescr " + descr.toString());
 			ruleset.addImport(importDescr.getTarget());
 			//visit(importDescr);
 		}
@@ -521,8 +524,19 @@ public class PackageDescrResourceVisitor {
 			ruleset.addRule(visit(ruleDescr, new Node()));
 		}
 		for (TypeDeclarationDescr typeDescr : descr.getTypeDeclarations()) {
-			logger.debug(" typeDescr " + descr.toString());
-			visit(typeDescr);
+			logger.debug(" typeDescr " + typeDescr.toString());
+			TypeDeclaration td = new TypeDeclaration();
+			td.setName(typeDescr.getType().getFullName());
+			for (String key : typeDescr.getFields().keySet()) {
+				logger.debug(key + " " + typeDescr.getFields().get(key));
+				TypeFieldDescr fieldDescr = typeDescr.getFields().get(key);
+				Parameter field = new Parameter();
+				field.setName(fieldDescr.getFieldName());
+				field.setType(fieldDescr.getPattern().getObjectType());
+				td.addField(field);
+ 			}
+			ruleset.addDeclare(td);
+			//visit(typeDescr);
 		}
 		for (EntryPointDeclarationDescr entryDescr : descr.getEntryPointDeclarations()) {
 			logger.debug(" entryDescr " + descr.toString());
@@ -533,7 +547,7 @@ public class PackageDescrResourceVisitor {
 			visit(windowDescr);
 		}
 		for (EnumDeclarationDescr enumDescr : descr.getEnumDeclarations()) {
-			logger.debug(" enumDescr " + descr.toString());
+			logger.info(" enumDescr " + descr.toString());
 			visit(enumDescr);
 		}
 		return ruleset;

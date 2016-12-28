@@ -47,6 +47,32 @@ public class Rhs {
 		return builder.toString();
 	}
 
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((consequences == null) ? 0 : consequences.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Rhs other = (Rhs) obj;
+		if (consequences == null) {
+			if (other.consequences != null)
+				return false;
+		} else if (!consequences.equals(other.consequences))
+			return false;
+		return true;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

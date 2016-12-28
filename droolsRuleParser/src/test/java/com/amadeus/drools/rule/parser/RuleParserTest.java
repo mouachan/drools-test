@@ -1,5 +1,6 @@
 package com.amadeus.drools.rule.parser;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import org.junit.Test;
 
 import com.amadeus.drools.rule.model.Rule;
 import com.amadeus.drools.rule.model.RuleAttribute;
+import com.amadeus.drools.rule.model.RuleSet;
 
 public class RuleParserTest {
 	String path = System.getProperty("user.dir") + "/src/main/resources/com/amadeus/drools/rule/parser/";
@@ -25,26 +27,15 @@ public class RuleParserTest {
 		dialect = new RuleAttribute("dialect", "mvel");
 		salience = new RuleAttribute("salience", "10000");
 	}
-
-	private void assertAllRule(String rulename) {
-		for (Rule rule : rules) {
-			if (rule.getName().equals(rulename)) {
-				assertTrue(rule.getAttributes().contains(noloop));
-				assertTrue(rule.getAttributes().contains(salience));
-				assertTrue(rule.getAttributes().contains(dialect));
-			}
-		}
-	}
-
-
-	
-
-	
 	
 	@Test
 	public void testParserByVisitor(){
+		logger.info("Parse using visitor");
 		RuleParser rp = new RuleParser();
 		rp.setUp(path + "rules.drl");
-		rp.parseRule();
+		RuleSet rsparsed = rp.parseRule();
+		String rstojson = rp.convertObjectToJson(rsparsed);
+		RuleSet jsontors = rp.convertJsonToRuleSet(rstojson);
+		assertEquals(rsparsed, jsontors);
 	}
 }
