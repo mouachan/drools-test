@@ -88,7 +88,7 @@ public class RuleParserTest {
 			String rstojson = rp.convertObjectToJson(rsparsed);
 			RuleSet jsontors = rp.convertJsonToObject(rstojson, RuleSet.class);
 			assertEquals(rsparsed, jsontors);
-			//rp.objectToDrlString(rsparsed);
+			rp.objectToDrlString(rsparsed);
 	}
 
 }

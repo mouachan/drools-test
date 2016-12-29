@@ -6,11 +6,17 @@ import static org.junit.Assert.fail;
 import org.apache.log4j.Logger;
 import org.drools.compiler.compiler.DrlExprParser;
 import org.drools.compiler.lang.DrlDumper;
+import org.drools.compiler.lang.api.AbstractClassTypeDeclarationBuilder;
 import org.drools.compiler.lang.api.CEDescrBuilder;
+import org.drools.compiler.lang.api.DeclareDescrBuilder;
+import org.drools.compiler.lang.api.DescrBuilder;
 import org.drools.compiler.lang.api.DescrFactory;
+import org.drools.compiler.lang.api.FieldDescrBuilder;
+import org.drools.compiler.lang.api.FunctionDescrBuilder;
 import org.drools.compiler.lang.api.PackageDescrBuilder;
 import org.drools.compiler.lang.api.PatternDescrBuilder;
 import org.drools.compiler.lang.api.RuleDescrBuilder;
+import org.drools.compiler.lang.api.TypeDeclarationDescrBuilder;
 import org.drools.compiler.lang.descr.AccessorDescr;
 import org.drools.compiler.lang.descr.AccumulateDescr;
 import org.drools.compiler.lang.descr.AccumulateImportDescr;
@@ -665,13 +671,15 @@ public class PackageDescrResourceVisitor {
 		// add consequences as list of String
 		visitConsequence(descr.getConsequence(), rule);
 		// TODO implement named consequence
-		//for (Object o : descr.getNamedConsequences().values()) {
-			//visitConsequence(o);
-		//}
+		// for (Object o : descr.getNamedConsequences().values()) {
+		// visitConsequence(o);
+		// }
 		return rule;
 	}
+
 	/**
-	 * Visti consequence, add consequences as list of String to the rule  
+	 * Visti consequence, add consequences as list of String to the rule
+	 * 
 	 * @param consequence
 	 * @param rule
 	 */
@@ -683,11 +691,12 @@ public class PackageDescrResourceVisitor {
 			con.setText(cons[i].trim());
 			rule.getRhs().addConsequence(con);
 		}
-		//TODO implement visitor consequence based on descriptor
+		// TODO implement visitor consequence based on descriptor
 		// if (consequence instanceof BaseDescr) {
 		// visit(consequence);
 		// }
 	}
+
 	/**
 	 * 
 	 * @param descr
@@ -724,7 +733,7 @@ public class PackageDescrResourceVisitor {
 		checkResource(descr);
 	}
 
-	private void visit(Node node, CEDescrBuilder<?, ?> lhs) {
+	protected void visit(Node node, CEDescrBuilder<?, ?> lhs) {
 		if (node.expNotNull()) {
 			Expression expr = node.getExpression();
 			PatternDescrBuilder<?> pattern = lhs.pattern(expr.getObjectType()).id(expr.getBindingType(), false);
@@ -734,32 +743,46 @@ public class PackageDescrResourceVisitor {
 
 		} else if (node.getGate().equals(Gate.AND)) {
 			CEDescrBuilder<?, ?> andDesc = lhs.and();
-			createLhs(node, andDesc);
+			for (Node n : node.getChildren()) {
+				visit(n, andDesc);
+			}
 
-		} else {
+		} else if (node.getGate().equals(Gate.OR)){
 			CEDescrBuilder<?, ?> orDesc = lhs.or();
-			createLhs(node, orDesc);
-		}
-	}
-
-	private void createLhs(Node node, CEDescrBuilder<?, ?> lhs) {
-		visit(node, lhs);
-		for (Node n : node.getChildren()) {
-			createLhs(n, lhs);
+			for (Node n : node.getChildren()) {
+				visit(n, orDesc);
+			}
 		}
 	}
 
 	protected String buildRules(RuleSet ruleset) {
 		PackageDescrBuilder pkg = DescrFactory.newPackage();
 		pkg.name(ruleset.getNameSpace());
+		for(String imp : ruleset.getImports())
+			pkg.newImport().target(imp+";");
+		for(TypeDeclaration declare : ruleset.getDeclares()){
+			TypeDeclarationDescrBuilder typeDeclareDescr = pkg.newDeclare().type();
+			typeDeclareDescr.name(declare.getName());
+			for(Parameter param : declare.getFields()){
+				typeDeclareDescr.newField(param.getName()).type(param.getType());
+			}
+		}
+		for(Function function : ruleset.getFunctions()){
+			FunctionDescrBuilder functionDescr = pkg.newFunction();
+			functionDescr.returnType(function.getReturnType());
+			functionDescr.name(function.getName());
+			for(Parameter param : function.getParameters()){
+				functionDescr.parameter(param.getType(), param.getName());
+			}
+			functionDescr.body(function.getBody());
+		}
 		for (Rule rule : ruleset.getRules()) {
-			CEDescrBuilder<RuleDescrBuilder, AndDescr> lhs = pkg.newRule().name(rule.getName()).lhs();
-			createLhs(rule.getLhs(), lhs);
-			/*
-			 * .lhs(). .pattern("Person").constraint("age < 18").end()
-			 * .pattern().id("$a", false).type("Action").end() .end()
-			 * .rhs("$a.showBanner( false );") .end();
-			 */
+			RuleDescrBuilder ruleDescr = pkg.newRule();
+			ruleDescr.name(rule.getName());
+			for(RuleAttribute rattr : rule.getAttributes())
+				ruleDescr.attribute(rattr.getName(), rattr.getValue());
+			visit(rule.getLhs(), ruleDescr.lhs());
+			ruleDescr.rhs(rule.getRhs().buildRhs());
 		}
 		String rules = new DrlDumper().dump(pkg.getDescr());
 		return rules;

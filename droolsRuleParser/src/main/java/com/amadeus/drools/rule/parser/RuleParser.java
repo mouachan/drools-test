@@ -116,8 +116,12 @@ public class RuleParser {
 			return null;
 		}
 	}
-
-	public void objectToDrlString(RuleSet ruleset){
-		logger.info(pdrv.buildRules(ruleset));
+	/**
+	 * Build String from ruleset
+	 * @param ruleset
+	 * @return String 
+	 */
+	public String objectToDrlString(RuleSet ruleset){
+		return "\n"+pdrv.buildRules(ruleset);
 	}
 }
