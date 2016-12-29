@@ -3,10 +3,14 @@ package com.amadeus.drools.rule.parser;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.drools.compiler.compiler.DrlExprParser;
+import org.drools.compiler.lang.DrlDumper;
+import org.drools.compiler.lang.api.CEDescrBuilder;
+import org.drools.compiler.lang.api.DescrFactory;
+import org.drools.compiler.lang.api.PackageDescrBuilder;
+import org.drools.compiler.lang.api.PatternDescrBuilder;
+import org.drools.compiler.lang.api.RuleDescrBuilder;
 import org.drools.compiler.lang.descr.AccessorDescr;
 import org.drools.compiler.lang.descr.AccumulateDescr;
 import org.drools.compiler.lang.descr.AccumulateImportDescr;
@@ -64,21 +68,22 @@ import com.amadeus.drools.rule.model.RuleAttribute;
 import com.amadeus.drools.rule.model.RuleSet;
 import com.amadeus.drools.rule.model.TypeDeclaration;
 
+/**
+ * Visitor of package descriptor
+ * 
+ * @author mouachan
+ *
+ */
 public class PackageDescrResourceVisitor {
 
 	private static final Logger logger = Logger.getLogger(PackageDescrResourceVisitor.class);
 	private DrlExprParser drlexpparser = new DrlExprParser(LanguageLevelOption.DRL6);
 
-
 	private Expression expression = null;
 	private Constraint constraint = null;
 	private RuleSet ruleset = new RuleSet();
 
-
-
-
 	private void checkResource(BaseDescr descr) {
-
 		logger.debug(descr.getClass().getSimpleName());
 		logger.debug(descr.toString());
 		if (descr != null) {
@@ -86,6 +91,11 @@ public class PackageDescrResourceVisitor {
 		}
 	}
 
+	/**
+	 * Visit descriptor (recursive call depending on descriptor type)
+	 * 
+	 * @param descr
+	 */
 	public void visit(final Object descr) {
 		StackTraceElement[] stack = Thread.currentThread().getStackTrace();
 		String lastMethodName = null;
@@ -175,6 +185,13 @@ public class PackageDescrResourceVisitor {
 		}
 	}
 
+	/**
+	 * Recursive visit descriptor to construct tree of LHS
+	 * 
+	 * @param descr
+	 *            descriptor
+	 * @param node
+	 */
 	public void visit(final Object descr, Node node) {
 		StackTraceElement[] stack = Thread.currentThread().getStackTrace();
 		String lastMethodName = null;
@@ -294,6 +311,12 @@ public class PackageDescrResourceVisitor {
 
 	}
 
+	/**
+	 * Visit descriptor, create AND gate and recursive call for children
+	 * 
+	 * @param descr
+	 * @param node
+	 */
 	protected void visit(final AndDescr descr, Node node) {
 		checkResource(descr);
 		if (!node.expNotNull())
@@ -317,7 +340,6 @@ public class PackageDescrResourceVisitor {
 		}
 	}
 
-	// (and(or(pattern,pattern), or(pattern,pattern))) ==>
 	protected void visit(final AtomicExprDescr descr) {
 		checkResource(descr);
 	}
@@ -366,6 +388,11 @@ public class PackageDescrResourceVisitor {
 		checkResource(descr);
 	}
 
+	/**
+	 * Visit ExprConstraintDescr, create Constraint and added to Expression
+	 * 
+	 * @param descr
+	 */
 	protected void visit(final ExprConstraintDescr descr, Node node) {
 		// logger.debug(descr.getExpression());
 		ConstraintConnectiveDescr result = drlexpparser.parse(descr.getExpression());
@@ -452,6 +479,12 @@ public class PackageDescrResourceVisitor {
 		}
 	}
 
+	/**
+	 * Visit descriptor, create OR gate and recursive call for children
+	 * 
+	 * @param descr
+	 * @param node
+	 */
 	protected void visit(final OrDescr descr, Node node) {
 		if (!node.expNotNull())
 			node.setGate(Gate.OR);
@@ -471,22 +504,29 @@ public class PackageDescrResourceVisitor {
 	 * parse package descriptor and get functions
 	 */
 	protected Function parseFunction(FunctionDescr functionDescr) {
-			Function function = new Function();
-			function.setName(functionDescr.getName());
-			function.setReturnType(functionDescr.getReturnType());
-			int index = 0;
-			for (String paramName : functionDescr.getParameterNames()) {
-				Parameter param = new Parameter();
-				param.setName(paramName);
-				param.setType(functionDescr.getParameterTypes().get(index));
-				index++;
-				function.addParameter(param);
-			}
-			function.setBody(functionDescr.getBody());
-			return function;
+		Function function = new Function();
+		function.setName(functionDescr.getName());
+		function.setReturnType(functionDescr.getReturnType());
+		int index = 0;
+		for (String paramName : functionDescr.getParameterNames()) {
+			Parameter param = new Parameter();
+			param.setName(paramName);
+			param.setType(functionDescr.getParameterTypes().get(index));
+			index++;
+			function.addParameter(param);
+		}
+		function.setBody(functionDescr.getBody());
+		return function;
 	}
+
+	/**
+	 * Visit package descriptor, create Ruleset
+	 * 
+	 * @param descr
+	 * @return Ruleset
+	 */
 	protected RuleSet visit(final PackageDescr descr) {
-		
+
 		if (descr == null) {
 			return null;
 		}
@@ -495,11 +535,11 @@ public class PackageDescrResourceVisitor {
 		for (ImportDescr importDescr : descr.getImports()) {
 			logger.debug(" importDescr " + descr.toString());
 			ruleset.addImport(importDescr.getTarget());
-			//visit(importDescr);
+			// visit(importDescr);
 		}
 		for (FunctionImportDescr funcImportDescr : descr.getFunctionImports()) {
 			logger.debug(" funcImportDescr " + descr.toString());
-			//TODO
+			// TODO
 			visit(funcImportDescr);
 		}
 		for (AccumulateImportDescr accImportDescr : descr.getAccumulateImports()) {
@@ -520,7 +560,7 @@ public class PackageDescrResourceVisitor {
 		}
 		for (RuleDescr ruleDescr : descr.getRules()) {
 			logger.debug(" ruleDescr " + descr.toString());
-			
+
 			ruleset.addRule(visit(ruleDescr, new Node()));
 		}
 		for (TypeDeclarationDescr typeDescr : descr.getTypeDeclarations()) {
@@ -534,9 +574,9 @@ public class PackageDescrResourceVisitor {
 				field.setName(fieldDescr.getFieldName());
 				field.setType(fieldDescr.getPattern().getObjectType());
 				td.addField(field);
- 			}
+			}
 			ruleset.addDeclare(td);
-			//visit(typeDescr);
+			// visit(typeDescr);
 		}
 		for (EntryPointDeclarationDescr entryDescr : descr.getEntryPointDeclarations()) {
 			logger.debug(" entryDescr " + descr.toString());
@@ -565,6 +605,11 @@ public class PackageDescrResourceVisitor {
 
 	}
 
+	/**
+	 * Visit PatternDescr, create expression and recrusive call with children
+	 * 
+	 * @param descr
+	 */
 	protected void visit(final PatternDescr descr, Node node) {
 		checkResource(descr);
 		expression = new Expression();
@@ -597,39 +642,56 @@ public class PackageDescrResourceVisitor {
 		visit(descr.getRight());
 	}
 
-
-
+	/**
+	 * Visit rule descriptor, create Rule
+	 * 
+	 * @param descr
+	 * @param node
+	 * @return
+	 */
 	protected Rule visit(final RuleDescr descr, Node node) {
 		Rule rule = new Rule();
+		// Set rule name
 		rule.setName(descr.getName());
 		checkResource(descr);
+		// add rule attributes
 		for (AttributeDescr d : descr.getAttributes().values()) {
 			rule.addAttribute(visit(d));
 		}
-
+		// visit LHS
 		visit(descr.getLhs(), node);
+		// add LHS tree nodes
 		rule.setLhs(node);
+		// add consequences as list of String
 		visitConsequence(descr.getConsequence(), rule);
-		//TODO implement named consequence
+		// TODO implement named consequence
 		//for (Object o : descr.getNamedConsequences().values()) {
 			//visitConsequence(o);
 		//}
 		return rule;
 	}
-
+	/**
+	 * Visti consequence, add consequences as list of String to the rule  
+	 * @param consequence
+	 * @param rule
+	 */
 	protected void visitConsequence(final Object consequence, Rule rule) {
-		//Basic implementation without recursive method based on split
+		// Basic implementation without recursive method based on split
 		String[] cons = consequence.toString().trim().split(";");
 		for (int i = 0; i < cons.length; i++) {
 			Consequence con = new Consequence();
 			con.setText(cons[i].trim());
 			rule.getRhs().addConsequence(con);
 		}
-		//if (consequence instanceof BaseDescr) {
-			//visit(consequence);
-		//}
+		//TODO implement visitor consequence based on descriptor
+		// if (consequence instanceof BaseDescr) {
+		// visit(consequence);
+		// }
 	}
-
+	/**
+	 * 
+	 * @param descr
+	 */
 	protected void visit(final TypeDeclarationDescr descr) {
 		checkResource(descr);
 		for (TypeFieldDescr fieldDescr : descr.getFields().values()) {
@@ -660,5 +722,46 @@ public class PackageDescrResourceVisitor {
 
 	protected void visit(final BehaviorDescr descr) {
 		checkResource(descr);
+	}
+
+	private void visit(Node node, CEDescrBuilder<?, ?> lhs) {
+		if (node.expNotNull()) {
+			Expression expr = node.getExpression();
+			PatternDescrBuilder<?> pattern = lhs.pattern(expr.getObjectType()).id(expr.getBindingType(), false);
+			for (Constraint constr : expr.getConstraints()) {
+				pattern.constraint(constr.stringFormat());
+			}
+
+		} else if (node.getGate().equals(Gate.AND)) {
+			CEDescrBuilder<?, ?> andDesc = lhs.and();
+			createLhs(node, andDesc);
+
+		} else {
+			CEDescrBuilder<?, ?> orDesc = lhs.or();
+			createLhs(node, orDesc);
+		}
+	}
+
+	private void createLhs(Node node, CEDescrBuilder<?, ?> lhs) {
+		visit(node, lhs);
+		for (Node n : node.getChildren()) {
+			createLhs(n, lhs);
+		}
+	}
+
+	protected String buildRules(RuleSet ruleset) {
+		PackageDescrBuilder pkg = DescrFactory.newPackage();
+		pkg.name(ruleset.getNameSpace());
+		for (Rule rule : ruleset.getRules()) {
+			CEDescrBuilder<RuleDescrBuilder, AndDescr> lhs = pkg.newRule().name(rule.getName()).lhs();
+			createLhs(rule.getLhs(), lhs);
+			/*
+			 * .lhs(). .pattern("Person").constraint("age < 18").end()
+			 * .pattern().id("$a", false).type("Action").end() .end()
+			 * .rhs("$a.showBanner( false );") .end();
+			 */
+		}
+		String rules = new DrlDumper().dump(pkg.getDescr());
+		return rules;
 	}
 }

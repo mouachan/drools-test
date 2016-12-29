@@ -128,7 +128,12 @@ public class Constraint {
 			return false;
 		return true;
 	}
-
+	public String stringFormat(){
+		if(this.bindingField!=null)
+			return this.bindingField+":"+this.getLeft()+" "+this.getOperand()+" "+this.getRight();
+		else
+			return this.getLeft()+" "+this.getOperand()+" "+this.getRight();
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
