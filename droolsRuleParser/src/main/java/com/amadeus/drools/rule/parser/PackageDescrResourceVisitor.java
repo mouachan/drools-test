@@ -3,15 +3,13 @@ package com.amadeus.drools.rule.parser;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import org.apache.log4j.Logger;
 import org.drools.compiler.compiler.DrlExprParser;
-import org.drools.compiler.lang.DrlDumper;
-import org.drools.compiler.lang.api.AbstractClassTypeDeclarationBuilder;
 import org.drools.compiler.lang.api.CEDescrBuilder;
-import org.drools.compiler.lang.api.DeclareDescrBuilder;
-import org.drools.compiler.lang.api.DescrBuilder;
 import org.drools.compiler.lang.api.DescrFactory;
-import org.drools.compiler.lang.api.FieldDescrBuilder;
 import org.drools.compiler.lang.api.FunctionDescrBuilder;
 import org.drools.compiler.lang.api.PackageDescrBuilder;
 import org.drools.compiler.lang.api.PatternDescrBuilder;
@@ -60,6 +58,9 @@ import org.drools.compiler.lang.descr.RuleDescr;
 import org.drools.compiler.lang.descr.TypeDeclarationDescr;
 import org.drools.compiler.lang.descr.TypeFieldDescr;
 import org.drools.compiler.lang.descr.WindowDeclarationDescr;
+import org.drools.template.parser.DefaultTemplateContainer;
+import org.drools.template.parser.RuleTemplate;
+import org.drools.template.parser.TemplateContainer;
 import org.kie.internal.builder.conf.LanguageLevelOption;
 
 import com.amadeus.drools.rule.model.Consequence;
@@ -90,7 +91,7 @@ public class PackageDescrResourceVisitor {
 	private RuleSet ruleset = new RuleSet();
 
 	private void checkResource(BaseDescr descr) {
-		logger.debug(descr.getClass().getSimpleName());
+		logger.info(descr.getClass().getSimpleName());
 		logger.debug(descr.toString());
 		if (descr != null) {
 			assertNotNull(descr.getClass().getSimpleName() + ".resource is null!", descr.getResource());
@@ -540,6 +541,7 @@ public class PackageDescrResourceVisitor {
 		ruleset.setNameSpace(descr.getNamespace());
 		for (ImportDescr importDescr : descr.getImports()) {
 			logger.debug(" importDescr " + descr.toString());
+			// add imports
 			ruleset.addImport(importDescr.getTarget());
 			// visit(importDescr);
 		}
@@ -569,10 +571,13 @@ public class PackageDescrResourceVisitor {
 
 			ruleset.addRule(visit(ruleDescr, new Node()));
 		}
+		// add type declaration to ruleset model
 		for (TypeDeclarationDescr typeDescr : descr.getTypeDeclarations()) {
 			logger.debug(" typeDescr " + typeDescr.toString());
 			TypeDeclaration td = new TypeDeclaration();
+			// set name of declare object
 			td.setName(typeDescr.getType().getFullName());
+			// add parameters
 			for (String key : typeDescr.getFields().keySet()) {
 				logger.debug(key + " " + typeDescr.getFields().get(key));
 				TypeFieldDescr fieldDescr = typeDescr.getFields().get(key);
@@ -581,6 +586,7 @@ public class PackageDescrResourceVisitor {
 				field.setType(fieldDescr.getPattern().getObjectType());
 				td.addField(field);
 			}
+			// add declare
 			ruleset.addDeclare(td);
 			// visit(typeDescr);
 		}
@@ -618,12 +624,16 @@ public class PackageDescrResourceVisitor {
 	 */
 	protected void visit(final PatternDescr descr, Node node) {
 		checkResource(descr);
+		// new expression
 		expression = new Expression();
 		expression.setBindingType(descr.getIdentifier());
 		expression.setObjectType(descr.getObjectType());
+		// add to the node
 		node.setExpression(expression);
+		// visit constraint
 		visit(descr.getConstraint(), node);
 		for (BaseDescr behaDescr : descr.getBehaviors()) {
+			// visit children
 			visit(behaDescr, node);
 		}
 
@@ -643,7 +653,6 @@ public class PackageDescrResourceVisitor {
 
 	protected void visit(final RelationalExprDescr descr) {
 		checkResource(descr);
-
 		visit(descr.getLeft());
 		visit(descr.getRight());
 	}
@@ -733,7 +742,15 @@ public class PackageDescrResourceVisitor {
 		checkResource(descr);
 	}
 
+	/**
+	 * Visit ruleset LHS (node) to create LHS descriptor, recursive call
+	 * 
+	 * @param node
+	 * @param lhs
+	 *            CEDescrBuilder<?, ?>
+	 */
 	protected void visit(Node node, CEDescrBuilder<?, ?> lhs) {
+		// build pattern
 		if (node.expNotNull()) {
 			Expression expr = node.getExpression();
 			PatternDescrBuilder<?> pattern = lhs.pattern(expr.getObjectType()).id(expr.getBindingType(), false);
@@ -742,12 +759,14 @@ public class PackageDescrResourceVisitor {
 			}
 
 		} else if (node.getGate().equals(Gate.AND)) {
+			// build and descriptor
 			CEDescrBuilder<?, ?> andDesc = lhs.and();
 			for (Node n : node.getChildren()) {
 				visit(n, andDesc);
 			}
 
-		} else if (node.getGate().equals(Gate.OR)){
+		} else if (node.getGate().equals(Gate.OR)) {
+			// build or descriptor
 			CEDescrBuilder<?, ?> orDesc = lhs.or();
 			for (Node n : node.getChildren()) {
 				visit(n, orDesc);
@@ -755,36 +774,97 @@ public class PackageDescrResourceVisitor {
 		}
 	}
 
-	protected String buildRules(RuleSet ruleset) {
-		PackageDescrBuilder pkg = DescrFactory.newPackage();
-		pkg.name(ruleset.getNameSpace());
-		for(String imp : ruleset.getImports())
-			pkg.newImport().target(imp+";");
-		for(TypeDeclaration declare : ruleset.getDeclares()){
-			TypeDeclarationDescrBuilder typeDeclareDescr = pkg.newDeclare().type();
-			typeDeclareDescr.name(declare.getName());
-			for(Parameter param : declare.getFields()){
-				typeDeclareDescr.newField(param.getName()).type(param.getType());
-			}
-		}
-		for(Function function : ruleset.getFunctions()){
+	/**
+	 * Add ruleset imports to pkg descriptor
+	 * 
+	 * @param pkg
+	 * @param ruleset
+	 */
+	protected void addImportsToPkg(PackageDescrBuilder pkg, RuleSet ruleset) {
+		for (String imp : ruleset.getImports())
+			pkg.newImport().target(imp + ";");
+	}
+
+	/**
+	 * Add ruleset type declares to pkg descriptor
+	 * 
+	 * @param pkg
+	 * @param ruleset
+	 */
+	protected void addTypeDeclaresToPkg(PackageDescrBuilder pkg, RuleSet ruleset) {
+		for (Function function : ruleset.getFunctions()) {
 			FunctionDescrBuilder functionDescr = pkg.newFunction();
 			functionDescr.returnType(function.getReturnType());
 			functionDescr.name(function.getName());
-			for(Parameter param : function.getParameters()){
+			for (Parameter param : function.getParameters()) {
 				functionDescr.parameter(param.getType(), param.getName());
 			}
 			functionDescr.body(function.getBody());
 		}
+	}
+
+	/**
+	 * Add ruleset functions to pkg descriptor
+	 * 
+	 * @param pkg
+	 * @param ruleset
+	 */
+	protected void addFunctionsToPkg(PackageDescrBuilder pkg, RuleSet ruleset) {
+		for (TypeDeclaration declare : ruleset.getDeclares()) {
+			TypeDeclarationDescrBuilder typeDeclareDescr = pkg.newDeclare().type();
+			typeDeclareDescr.name(declare.getName());
+			for (Parameter param : declare.getFields()) {
+				typeDeclareDescr.newField(param.getName()).type(param.getType());
+			}
+		}
+	}
+
+	/**
+	 * Add rules from ruleset to pkg descriptor
+	 * 
+	 * @param pkg
+	 * @param ruleset
+	 */
+	protected void addRulesToPkg(PackageDescrBuilder pkg, RuleSet ruleset) {
 		for (Rule rule : ruleset.getRules()) {
 			RuleDescrBuilder ruleDescr = pkg.newRule();
 			ruleDescr.name(rule.getName());
-			for(RuleAttribute rattr : rule.getAttributes())
+			for (RuleAttribute rattr : rule.getAttributes())
 				ruleDescr.attribute(rattr.getName(), rattr.getValue());
 			visit(rule.getLhs(), ruleDescr.lhs());
 			ruleDescr.rhs(rule.getRhs().buildRhs());
 		}
-		String rules = new DrlDumper().dump(pkg.getDescr());
-		return rules;
 	}
+
+	/**
+	 * Build package descriptor from ruleset
+	 * 
+	 * @param ruleset
+	 * @return
+	 */
+	protected PackageDescr buildPackageDescriptorFromRuleSet(RuleSet ruleset) {
+		PackageDescrBuilder pkg = DescrFactory.newPackage();
+		pkg.name(ruleset.getNameSpace());
+		addImportsToPkg(pkg, ruleset);
+		addTypeDeclaresToPkg(pkg, ruleset);
+		addRulesToPkg(pkg, ruleset);
+		return pkg.getDescr();
+	}
+
+	protected void readTemplate(String drl) {
+		InputStream is = new ByteArrayInputStream(drl.getBytes());
+		TemplateContainer tc = new DefaultTemplateContainer(is);
+		logger.info(tc.getHeader());
+		for (String key : tc.getTemplates().keySet()){
+			RuleTemplate rt = tc.getTemplates().get(key);
+			logger.info(rt.getName());
+			logger.info(rt.getContents());
+			rt.getColumns();
+		//	for(DefaultTemplateColumn dtc : rt.getColumns()){
+				
+			//}
+		}
+
+	}
+
 }

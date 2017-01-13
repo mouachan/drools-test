@@ -9,14 +9,14 @@ import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 public class ExcelUtil {
 	private Workbook workbook;
 	private HSSFSheet worksheet = null;
-	private HSSFSheet declareworksheet = null;
+	@SuppressWarnings("unused")
+	private HSSFSheet declareWorkSheet = null;
 
 	private FileOutputStream out;
 	private HSSFRow row = null;
@@ -27,7 +27,7 @@ public class ExcelUtil {
 			workbook = new HSSFWorkbook();
 			// Access the worksheet, so that we can update / modify it.
 			worksheet = (HSSFSheet) workbook.createSheet("rules");
-			declareworksheet = (HSSFSheet) workbook.createSheet("facts");
+			declareWorkSheet = (HSSFSheet) workbook.createSheet("facts");
 
 			
 		} catch (FileNotFoundException e) {

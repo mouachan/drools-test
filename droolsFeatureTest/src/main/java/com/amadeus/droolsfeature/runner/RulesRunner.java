@@ -27,6 +27,7 @@ public class RulesRunner {
 	private  Logger logger = Logger.getLogger(RulesRunner.class);
 	private KieSession kSession = null;
 	private KieContainer kContainer = null;
+	private KieBase kBase = null;
 
 	public void initialisation(String fileName) {
 		path = System.getProperty("user.dir") + "/src/main/resources/com/amadeus/droolsfeature/rules/";
@@ -48,18 +49,27 @@ public class RulesRunner {
 			throw new RuntimeException("Build time Errors: " + kbuilder.getResults().toString());
 		}
 		kContainer = kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
+		kBase = kContainer.getKieBase();
 	}
 	
 	public void setSession(){
 		kSession = kContainer.newKieSession();
 	}
+	public KieBase getKieBase(){
+		return kBase;
+	}
+	public KieSession getSession(){
+		return kSession; 
+	}
 	public void addAgendaListener(){
 		agendaEventListener = new RulesAgendaListener();
 		kSession.addEventListener(agendaEventListener);
 	}
-	public void runRule(List<Object> objects) {		
-		for (Object object : objects)
+	public void runRule(List<Object> objects) {	
+		logger.info(objects.size());
+		for (Object object : objects){
 			kSession.insert(object);
+		}
 		agendaEventListener = new RulesAgendaListener();
 		kSession.addEventListener(agendaEventListener);
 		kSession.fireAllRules();

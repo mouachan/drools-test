@@ -1,6 +1,0 @@
-package com.amadeus.droolsfeature.model;
-
-public class BzrFlightMatchDeclare {
-  private String name;
-  private int lom;
-}

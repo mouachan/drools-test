@@ -2,5 +2,6 @@
 <workingSetManager>
 <workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1481617395221_1" label="kie-dmn" name="kie-dmn"/>
 <workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1481824420538_2" label="droolsjbpm-tools" name="droolsjbpm-tools"/>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1483432580081_3" label="kie-server-parent" name="kie-server-parent"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1481016807942_0" label="Window Working Set" name="Aggregate for window 1481016807941"/>
 </workingSetManager>

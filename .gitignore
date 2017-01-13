@@ -16,4 +16,5 @@
 *.recommenders
 .settings/
 .project
-backup/20161124
+*kiserverTest
+*test

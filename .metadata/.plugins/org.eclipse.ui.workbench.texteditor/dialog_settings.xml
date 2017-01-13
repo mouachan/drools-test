@@ -2,17 +2,25 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="rules" key="selection"/>
+		<item value="createContainer" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="groupF"/>
-			<item value="loadRule"/>
-			<item value="importer"/>
+			<item value="createContainer"/>
+			<item value="rest"/>
+			<item value="api"/>
+			<item value="project.version"/>
+			<item value="jbpm-ui"/>
+			<item value="&lt;scope&gt;test&lt;/scope&gt;"/>
+			<item value="info"/>
+			<item value="logger.info"/>
 		</list>
 		<list key="replacehistory">
+			<item value="kie.version"/>
+			<item value=""/>
+			<item value="logger.debug"/>
 			<item value="rules"/>
 			<item value="import"/>
 		</list>
@@ -21,7 +29,7 @@
 		<item value="290" key="DIALOG_WIDTH"/>
 		<item value="1|.Helvetica Neue DeskInterface|11.0|0|COCOA|1|.HelveticaNeueDeskInterface-Regular" key="DIALOG_FONT_NAME"/>
 		<item value="409" key="DIALOG_HEIGHT"/>
-		<item value="564" key="DIALOG_X_ORIGIN"/>
-		<item value="128" key="DIALOG_Y_ORIGIN"/>
+		<item value="168" key="DIALOG_X_ORIGIN"/>
+		<item value="237" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

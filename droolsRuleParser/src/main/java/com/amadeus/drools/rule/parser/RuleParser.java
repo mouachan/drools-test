@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.drools.compiler.compiler.DrlParser;
 import org.drools.compiler.compiler.DroolsParserException;
+import org.drools.compiler.lang.DrlDumper;
 import org.drools.compiler.lang.descr.PackageDescr;
 import org.kie.api.KieServices;
 import org.kie.api.io.KieResources;
@@ -47,6 +48,14 @@ public class RuleParser {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * get package descriptor
+	 * @return
+	 */
+	public PackageDescr getPackageDescriptor(){
+		return packageDescr;
+	}
+	
 	/**
 	 * Parse Drl from string and convert it to package descriptor 
 	 * @param drl
@@ -117,11 +126,25 @@ public class RuleParser {
 		}
 	}
 	/**
-	 * Build String from ruleset
+	 * Build package descriptor from ruleset
+	 * @param ruleset
+	 * @return package descriptor
+	 */
+	public PackageDescr buildDescrFromRuleSet(RuleSet ruleset){
+		return pdrv.buildPackageDescriptorFromRuleSet(ruleset);
+	}
+	
+	/**
+	 * Dump String from package descriptor
 	 * @param ruleset
 	 * @return String 
 	 */
-	public String objectToDrlString(RuleSet ruleset){
-		return "\n"+pdrv.buildRules(ruleset);
+	public String convertPkgToString(PackageDescr pkg){
+		String rules = new DrlDumper().dump(pkg);
+		return rules;
+	}
+	
+	public void readTemplate(String drl){
+		pdrv.readTemplate(drl);
 	}
 }
