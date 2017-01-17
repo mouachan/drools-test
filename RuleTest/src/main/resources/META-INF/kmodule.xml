@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
+	<kbase name="TemplatesKB" packages="*">
+		<ruleTemplate dtable="rules/ExampleCheese.xls" template="rules/Cheese.drt"
+			row="2" col="2" />
+		<ksession name="TemplatesKS" default="true"/>
+	</kbase>
+</kmodule>
