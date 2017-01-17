@@ -16,4 +16,4 @@
 *.recommenders
 .settings/
 .project
-*kiserverTest
+kiserverTest
