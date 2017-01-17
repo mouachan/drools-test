@@ -19,17 +19,17 @@ import org.kie.server.services.impl.KieServerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ProtoBufDroolsKieServerExtension implements KieServerExtension {
+public class CustomKieServerExtension implements KieServerExtension {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProtoBufDroolsKieServerExtension.class);
+    private static final Logger logger = LoggerFactory.getLogger(CustomKieServerExtension.class);
 
-    public static final String EXTENSION_NAME = "ProtoBuf";
+    public static final String EXTENSION_NAME = "Custom";
 
     private static final Boolean disabled = Boolean.parseBoolean(System.getProperty(KieServerConstants.KIE_DROOLS_SERVER_EXT_DISABLED, "false"));
     private static final Boolean filterRemoteable = Boolean.parseBoolean(System.getProperty(KieServerConstants.KIE_DROOLS_FILTER_REMOTEABLE_CLASSES, "false"));
 
     private RulesExecutionService rulesExecutionService;
-    private ProtoBufDroolsKieContainerCommandServiceImpl batchCommandService;
+    private CustomKieContainerCommandServiceImpl batchCommandService;
     private KieServerRegistry registry;
 
     private List<Object> services = new ArrayList<Object>();
@@ -48,7 +48,7 @@ public class ProtoBufDroolsKieServerExtension implements KieServerExtension {
     @Override
     public void init(KieServerImpl kieServer, KieServerRegistry registry) {
         this.rulesExecutionService = new RulesExecutionService(registry);
-        this.batchCommandService = new ProtoBufDroolsKieContainerCommandServiceImpl(kieServer, registry, this.rulesExecutionService);
+        this.batchCommandService = new CustomKieContainerCommandServiceImpl(kieServer, registry, this.rulesExecutionService);
         this.registry = registry;
         if (registry.getKieSessionLookupManager() != null) {
             registry.getKieSessionLookupManager().addHandler(new DroolsKieSessionLookupHandler());

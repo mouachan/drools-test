@@ -1,26 +1,19 @@
 package com.amadeus.droolsfeature.rules;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.StringReader;
 
 import org.apache.log4j.Logger;
 import org.drools.compiler.compiler.DrlParser;
 import org.drools.compiler.compiler.DroolsParserException;
 import org.drools.compiler.compiler.xml.XmlDumper;
-import org.drools.compiler.lang.DrlDumper;
 import org.drools.compiler.lang.descr.PackageDescr;
 import org.drools.compiler.lang.descr.RuleDescr;
 import org.drools.decisiontable.InputType;
 import org.drools.decisiontable.SpreadsheetCompiler;
-import org.kie.internal.builder.KnowledgeBuilderFactory;
 import org.kie.internal.builder.conf.LanguageLevelOption;
 
 public class DecisionTableTools {
@@ -61,8 +54,7 @@ public class DecisionTableTools {
 		// create compiler class instance
 		SpreadsheetCompiler sc = new SpreadsheetCompiler();
 		// compile the excel to generate the (.drl)
-		String drl = sc.compile(is, InputType.XLS);
-		
+		String drl = sc.compile(is, InputType.XLS);	
 		// check the generated (.drl) 
 		logger.info("Generate DRL file is –: ");
 		logger.info(drl);

@@ -1,1 +1,1 @@
-com.amadeus.rule.kieserver.ProtoBufDroolsKieServerExtension
+com.amadeus.rule.kieserver.CustomKieServerExtension

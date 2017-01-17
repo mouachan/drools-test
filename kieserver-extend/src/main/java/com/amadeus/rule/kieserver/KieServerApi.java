@@ -25,14 +25,6 @@ public class KieServerApi {
 
 	private static KieServerImpl INSTANCE = null;
 
-	public static KieServerImpl get() {
-		if (INSTANCE == null) {
-			setUp();
-			INSTANCE = new KieServerImpl(new KieServerStateFileRepository(REPOSITORY_DIR));
-		}
-		return INSTANCE;
-	}
-
 	public static void setUp() {
 		System.setProperty("org.kie.server.id", KIE_SERVER_ID);
 		System.setProperty("kie.maven.settings.custom", "/Users/mouachan/.m2/settings.xml");
@@ -51,12 +43,20 @@ public class KieServerApi {
 
 	}
 
+	public static KieServerImpl getServer() {
+		if (INSTANCE == null) {
+			setUp();
+			INSTANCE = new KieServerImpl(new KieServerStateFileRepository(REPOSITORY_DIR));
+		}
+		return INSTANCE;
+	}
+
 	public void destroy() {
-		get().destroy();
+		getServer().destroy();
 	}
 
 	public <T> T getExtension(Class<T> extensionType) {
-		for (KieServerExtension extension : get().getServerExtensions()) {
+		for (KieServerExtension extension : getServer().getServerExtensions()) {
 			if (extensionType.isAssignableFrom(extension.getClass())) {
 				logger.info(extension.getExtensionName());
 				return (T) extension;
@@ -65,33 +65,33 @@ public class KieServerApi {
 		return null;
 	}
 
-	public void createContainer(String groupId, String artifactId, String version, String containerId, String alias) {
+	public ServiceResponse<KieContainerResource> createContainer(String groupId, String artifactId, String version, String containerId, String alias) {
 		ReleaseId releaseId = new ReleaseId(groupId, artifactId, version);
 		KieContainerResource kieContainerResource = new KieContainerResource(containerId, releaseId);
 		kieContainerResource.setContainerAlias(alias);
 		KieScannerResource kieScannerResource = new KieScannerResource(KieScannerStatus.STARTED, 20000L);
-	    kieContainerResource.setScanner(kieScannerResource);
-		ServiceResponse<KieContainerResource> response = get().createContainer(containerId, kieContainerResource);
+		kieContainerResource.setScanner(kieScannerResource);
+		return getServer().createContainer(containerId, kieContainerResource);
 	}
 
 	public void updateContainer(String groupId, String artifactId, String version, String containerId, String alias) {
 		ReleaseId releaseId = new ReleaseId(groupId, artifactId, version);
 		KieContainerResource kieContainerResource = new KieContainerResource(containerId, releaseId);
 		kieContainerResource.setContainerAlias(alias);
-		get().updateContainerReleaseId(containerId, releaseId);
-		get().updateScanner(alias, new KieScannerResource(KieScannerStatus.STARTED, 200L));
+		getServer().updateContainerReleaseId(containerId, releaseId);
+		getServer().updateScanner(alias, new KieScannerResource(KieScannerStatus.STARTED, 200L));
 	}
 
 	public ExecutionResults execute(List<Fact> facts, String containerId) {
-		ServiceResponse<ExecutionResults> response = getExtension(ProtoBufDroolsKieServerExtension.class)
-				.getAppComponents(ProtoBufDroolsKieContainerCommandServiceImpl.class).callContainer(containerId, facts);
+		ServiceResponse<ExecutionResults> response = getExtension(CustomKieServerExtension.class)
+				.getAppComponents(CustomKieContainerCommandServiceImpl.class).callContainer(containerId, facts);
 		logger.info(response.getMsg());
 		return response.getResult();
 	}
-	
+
 	public ExecutionResults executeByAlias(List<Fact> facts, String alias) {
-		ServiceResponse<ExecutionResults> response = getExtension(ProtoBufDroolsKieServerExtension.class)
-				.getAppComponents(ProtoBufDroolsKieContainerCommandServiceImpl.class).callContainerByAlias(alias, facts);
+		ServiceResponse<ExecutionResults> response = getExtension(CustomKieServerExtension.class)
+				.getAppComponents(CustomKieContainerCommandServiceImpl.class).callContainerByAlias(alias, facts);
 		logger.info(response.getMsg());
 		return response.getResult();
 	}

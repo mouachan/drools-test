@@ -19,19 +19,20 @@ import org.slf4j.LoggerFactory;
 
 import com.amadeus.rule.model.Fact;
 
-public class ProtoBufDroolsKieContainerCommandServiceImpl extends KieContainerCommandServiceImpl {
+public class CustomKieContainerCommandServiceImpl extends KieContainerCommandServiceImpl {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProtoBufDroolsKieContainerCommandServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(CustomKieContainerCommandServiceImpl.class);
 
 	private RulesExecutionService rulesExecutionService;
 
-	public ProtoBufDroolsKieContainerCommandServiceImpl(KieServerImpl kieServer, KieServerRegistry context,
+	public CustomKieContainerCommandServiceImpl(KieServerImpl kieServer, KieServerRegistry context,
 			RulesExecutionService rulesExecutionService) {
 		super(kieServer, context);
 		this.rulesExecutionService = rulesExecutionService;
 	}
 
 	protected void addFactToCommand(String containerId, Fact fact, BatchExecutionCommandImpl cmd) throws InstantiationException, IllegalAccessException {
+		
 		FactType objType = context.getContainer(containerId).getKieContainer().getKieBase()
 				.getFactType(fact.getNamespace(), fact.getName());
 
@@ -74,14 +75,13 @@ public class ProtoBufDroolsKieContainerCommandServiceImpl extends KieContainerCo
 		String containerId = null;
 		try {
 			
-			KieContainerInstanceImpl kci = (KieContainerInstanceImpl) context.getContainer( alias, ContainerLocatorProvider.get().getLocator() );
+			KieContainerInstanceImpl kci = (KieContainerInstanceImpl) context.getContainer(alias, ContainerLocatorProvider.get().getLocator());
 			containerId = kci.getKieContainer().getContainerId();
 			BatchExecutionCommandImpl cmds = new BatchExecutionCommandImpl();
 			for (Fact fact : facts) {
 				addFactToCommand(containerId, fact, cmds);
 			}
 			cmds.addCommand(new FireAllRulesCommand(alias));
-
 			if (kci != null && kci.getKieContainer() != null) {
 				ExecutionResults results = rulesExecutionService.call(kci, cmds);
 				return new ServiceResponse<ExecutionResults>(ServiceResponse.ResponseType.SUCCESS,
