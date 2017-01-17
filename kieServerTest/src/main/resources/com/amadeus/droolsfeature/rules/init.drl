@@ -1,7 +1,0 @@
-package com.amadeus.droolsfeature.rules 
-
-
-rule "hello world"
-then
-System.out.println("chauffe de l'engine");
-end
